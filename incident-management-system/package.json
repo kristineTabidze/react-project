@@ -1,0 +1,69 @@
+{
+  "name": "incident-management-system",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "bootstrap": "^4.4.1",
+    "less": "^3.11.1",
+    "node-sass": "^4.13.1",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "react-webpack": "^0.4.1",
+    "reactjs-popup": "^1.5.0",
+    "ttf-loader": "^1.0.2"
+  },
+  "scripts": {
+    "svgr": "svgr -d src/img/ icons/",
+    "start": "react-scripts start",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "webpack": "webpack",
+    "dev": "npm run webpack -- --mode development --watch",
+    "build": "npm run webpack -- --mode production"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "@svgr/cli": "^5.4.0",
+    "@svgr/webpack": "^5.4.0",
+    "@types/react-router-dom": "^5.1.3",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.4.2",
+    "file-loader": "^6.0.0",
+    "html-loader": "^1.0.0",
+    "html-webpack-plugin": "^4.0.1",
+    "less-loader": "^5.0.0",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
+    "typescript": "^3.8.3",
+    "url-loader": "^4.1.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
