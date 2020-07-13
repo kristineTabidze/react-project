@@ -1,0 +1,65 @@
+.inputContainerWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputContainer {
+  outline: none;
+  position: relative;
+  width: 98%;
+  height: 100%;
+  text-align: center;
+}
+
+.input {
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px inset;
+  font-size: 16px;
+  width: 222px;
+  height: 40px;
+  outline: none;
+  padding-left: 10px;
+  margin: 4px 0px;
+  color: #4e4e4e;
+
+  &[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  &[type="number"]::-webkit-inner-spin-button,
+  &[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+}
+
+.errorTextContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.errorText {
+  font-family: "Roboto Geo Nus";
+  font-size: 15px;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 8px;
+  color: #ef6b85;
+  text-align: center;
+  width: 100%;
+}
+
+.triangle {
+  @triangleH: 7px;
+  width: 0;
+  height: 0;
+  border-bottom: @triangleH solid #ef6b85;
+  border-left: @triangleH solid transparent;
+  border-right: @triangleH solid transparent;
+}

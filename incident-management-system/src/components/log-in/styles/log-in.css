@@ -1,0 +1,23 @@
+.loginPage {
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 80px auto;
+}
+.approveButton {
+  margin: 20px 0;
+  outline: none;
+  padding: 10px 32px;
+  border-radius: 20px;
+  border: none;
+  background-image: linear-gradient(45deg, #3807ff, #39306a);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.approveButton:hover {
+  background-image: linear-gradient(45deg, #39306a, #3807ff);
+}
