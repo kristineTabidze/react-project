@@ -140,7 +140,24 @@ export const MainTable: React.FC<{}> = (props) => {
 
   const onFindSearchText = useCallback(() => {
     for (const accident of accidents) {
+      const booleanString = accident.isFixed ? "კი" : "არა";
+      const dateString = getDate(accident.createdAt);
       if (accident.title.indexOf(searchText.current) > -1) {
+        const index = accidents.indexOf(accident);
+        const newPage =
+          index < itemDisplay ? 1 : Math.ceil((index + 1) / itemDisplay);
+        handlePageChange(newPage);
+      } else if (accident.author.indexOf(searchText.current) > -1) {
+        const index = accidents.indexOf(accident);
+        const newPage =
+          index < itemDisplay ? 1 : Math.ceil((index + 1) / itemDisplay);
+        handlePageChange(newPage);
+      } else if (booleanString.indexOf(searchText.current) > -1) {
+        const index = accidents.indexOf(accident);
+        const newPage =
+          index < itemDisplay ? 1 : Math.ceil((index + 1) / itemDisplay);
+        handlePageChange(newPage);
+      } else if (dateString.indexOf(searchText.current) > -1) {
         const index = accidents.indexOf(accident);
         const newPage =
           index < itemDisplay ? 1 : Math.ceil((index + 1) / itemDisplay);
@@ -221,8 +238,9 @@ export const MainTable: React.FC<{}> = (props) => {
           className="accident"
           style={{ padding: "0 15px", background: "#9898ff" }}
         >
-          {tableNames.map((table) => (
+          {tableNames.map((table, i) => (
             <div
+              key={i}
               onClick={() => sortByKey(table.value)}
               className={classNames(
                 table.value === "title"
@@ -239,7 +257,11 @@ export const MainTable: React.FC<{}> = (props) => {
           ))}
         </div>
         {vissibleAccidents.map((accident) => (
-          <Accident key={accident.id} accident={accident} />
+          <Accident
+            key={accident.id}
+            accident={accident}
+            searchedText={searchText.current}
+          />
         ))}
         <div>
           <Pagination
@@ -255,13 +277,71 @@ export const MainTable: React.FC<{}> = (props) => {
   );
 };
 
-const Accident: React.FC<{ accident: IAccident }> = ({ accident }) => {
+const Accident: React.FC<{ accident: IAccident; searchedText: string }> = ({
+  accident,
+  searchedText,
+}) => {
+  const booleanString = accident.isFixed ? "კი" : "არა";
+  const dateString = getDate(accident.createdAt);
+
   return (
     <div className="accident">
-      <div className="accidentTitle">{accident.title}</div>
-      <div className="accidentauthor">{accident.author} </div>
-      <div className="accidentisFixed">{accident.isFixed ? "კი" : "არა"}</div>
-      <div className="accidentDate">{getDate(accident.createdAt)}</div>
+      <div className="accidentTitle">
+        {accident.title.indexOf(searchedText) > -1 ? (
+          <ItemName name={accident.title} searchQuery={searchedText} />
+        ) : (
+          accident.title
+        )}
+      </div>
+      <div className="accidentauthor">
+        {accident.author.indexOf(searchedText) > -1 ? (
+          <ItemName name={accident.author} searchQuery={searchedText} />
+        ) : (
+          accident.author
+        )}
+      </div>
+      <div className="accidentisFixed">
+        {booleanString.indexOf(searchedText) > -1 ? (
+          <ItemName name={booleanString} searchQuery={searchedText} />
+        ) : (
+          booleanString
+        )}
+      </div>
+      <div className="accidentDate">
+        {dateString.indexOf(searchedText) > -1 ? (
+          <ItemName name={dateString} searchQuery={searchedText} />
+        ) : (
+          dateString
+        )}
+      </div>
     </div>
+  );
+};
+
+interface IItemNameProps {
+  name: string;
+  searchQuery: string;
+}
+const ItemName: React.FC<IItemNameProps> = (props) => {
+  const searchedIndex = props.name.indexOf(props.searchQuery);
+  console.log(props.name, "name");
+  console.log(searchedIndex, "searchedIndex");
+  console.log(props.searchQuery, "searchQuery");
+
+  return (
+    <>
+      <div style={{ display: "inline-block", textAlign: "center" }}>
+        {props.name.slice(0, searchedIndex)}
+      </div>
+      <div style={{ backgroundColor: "yellow", display: "inline-block" }}>
+        {props.name.slice(
+          searchedIndex,
+          searchedIndex + props.searchQuery.length
+        )}
+      </div>
+      <div style={{ display: "inline-block" }}>
+        {props.name.slice(searchedIndex + props.searchQuery.length)}
+      </div>
+    </>
   );
 };
