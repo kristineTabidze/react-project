@@ -3,4 +3,49 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 10px 15px;
+  border-bottom: 1px solid rgb(175, 171, 171);
+}
+
+.accidentTitle,
+.accidentauthor,
+.accidentisFixed,
+.accidentDate {
+  text-align: left;
+}
+
+.accidentTitle {
+  width: 60%;
+}
+
+.accidentauthor {
+  width: 20%;
+}
+
+.accidentisFixed,
+.accidentDate {
+  width: 10%;
+}
+
+.searchWithButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searhButton {
+  margin-left: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 5px 15px;
+  border: 1px solid #6464db;
+  background: transparent;
+  color: #6464db;
+  border-radius: 20px;
+  transition: 0.2s;
+  &:hover {
+    background-color: #6464db;
+    color: white;
+  }
 }

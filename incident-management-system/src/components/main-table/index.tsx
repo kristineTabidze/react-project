@@ -1,16 +1,7 @@
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-  ReactEventHandler,
-  useRef,
-} from "react";
-import "./styles/accident.css";
+import React, { useCallback, useRef, useState } from "react";
 import Pagination from "react-js-pagination";
 import { MailInput } from "../input/auth-input";
-// import SearchBar from "react-js-search";
-// import ReactSearchBox from "react-search-box";
-// import SearchField from "react-search-field";
+import "./styles/accident.css";
 
 const getDate = (date: Date) => {
   const month = date.getMonth();
@@ -29,42 +20,42 @@ interface IAccident {
 
 const accidents: IAccident[] = [
   {
-    title: "1 ინციდენტი",
+    title: "ბბბბ",
     author: "ქრისტინე ტაბ",
-    createdAt: new Date("2019-06-28"),
+    createdAt: new Date("2019-06-5"),
     isFixed: false,
     id: "1",
   },
   {
-    title: "2 ინციდენტი",
+    title: "აააა",
     author: "ქრისტ ტაბ",
     createdAt: new Date("2019-06-10"),
     isFixed: true,
     id: "2",
   },
   {
-    title: "3 ინციდენტი",
+    title: "ღდ",
     author: "ქ ტაბ",
     createdAt: new Date("2019-06-22"),
     isFixed: false,
     id: "3",
   },
   {
-    title: "4 ინციდენტი",
+    title: "გასას",
     author: "ქრისტინე ტაბ",
     createdAt: new Date("2019-06-28"),
     isFixed: true,
     id: "4",
   },
   {
-    title: "5 ინციდენტი",
+    title: "წქქ",
     author: "ქრისტინე ტაბ",
     createdAt: new Date("2019-06-28"),
     isFixed: false,
     id: "5",
   },
   {
-    title: "6 ინციდენტი",
+    title: "6 incidenti",
     author: "ქრისტ ტაბ",
     createdAt: new Date("2019-06-28"),
     isFixed: true,
@@ -136,50 +127,80 @@ export const MainTable: React.FC<{}> = (props) => {
     );
   }, []);
 
-  const onClick = useCallback(() => {
+  const onFindSearchText = useCallback(() => {
     for (const accident of accidents) {
       if (accident.title.indexOf(searchText.current) > -1) {
         const index = accidents.indexOf(accident);
-        console.log(searchText);
-        const newPage = Math.ceil((index + 1) % itemDisplay);
+        const newPage =
+          index < itemDisplay ? 1 : Math.ceil((index + 1) / itemDisplay);
         handlePageChange(newPage);
-        console.log(activePage, "activePage", newPage);
       }
     }
-  }, [activePage, handlePageChange]);
+  }, [activePage, handlePageChange, searchText.current]);
 
-  const sortByKey = useCallback((value: any) => {
-    if (value === "createdAt") {
-      const visible = vissibleAccidents.sort(
-        (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
-      );
-      setVissibleAccidents(visible);
-      setDescOrder(true);
-      console.log(vissibleAccidents, "vissibleAccidents", visible);
-    }
-  }, []);
+  const onEnterClick = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "Enter") {
+        onFindSearchText();
+      }
+    },
+    [onFindSearchText]
+  );
 
-  useEffect(() => {
-    if (descOrder) {
-      const visible = vissibleAccidents.sort(
-        (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
-      );
-      setVissibleAccidents(visible);
-    }
-  }, [descOrder, vissibleAccidents]);
+  const sortByKey = useCallback(
+    (value: any) => {
+      if (value === "createdAt") {
+        const visible = vissibleAccidents.sort((a, b) => {
+          if (descOrder) {
+            setDescOrder(false);
+            return a.createdAt.getTime() - b.createdAt.getTime();
+          } else {
+            setDescOrder(true);
+            return b.createdAt.getTime() - a.createdAt.getTime();
+          }
+        });
+        setVissibleAccidents(visible);
+      } else if (value === "title") {
+        const visible = vissibleAccidents.sort((a, b) => {
+          if (descOrder) {
+            setDescOrder(false);
+            return a.title.localeCompare(b.title);
+          } else {
+            setDescOrder(true);
+            return b.title.localeCompare(a.title);
+          }
+        });
+        console.log(visible, "vis");
+        setVissibleAccidents(visible);
+      }
+    },
+    [vissibleAccidents, descOrder]
+  );
 
   return (
     <div>
       <div>
-        <MailInput
-          placeholder={"ძებნა"}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            (searchText.current = e.target.value)
-          }
-        />
-        <button onClick={onClick}>done</button>
+        <div className="searchWithButton">
+          <div
+            onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) =>
+              onEnterClick(e)
+            }
+          >
+            <MailInput
+              placeholder={"ძებნა..."}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                (searchText.current = e.target.value)
+              }
+            />
+          </div>
+          <button onClick={onFindSearchText} className="searhButton">
+            დასტური
+          </button>
+        </div>
         <div className="accident">
-          <div className="accidentTitle">სათაური</div>
+          <div className="accidentTitle" onClick={() => sortByKey("title")}>
+            სათაური
+          </div>
           <div className="accidentauthor">ავტორი</div>
           <div className="accidentisFixed">მოგვარებულია</div>
           <div className="accidentDate" onClick={() => sortByKey("createdAt")}>
