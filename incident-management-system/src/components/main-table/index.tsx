@@ -2,6 +2,8 @@ import React, { useCallback, useRef, useState } from "react";
 import Pagination from "react-js-pagination";
 import { MailInput } from "../input/auth-input";
 import "./styles/accident.css";
+import classNames from "classnames";
+import doubleArrow from "./styles/imgs/double-arrow.svg";
 
 const getDate = (date: Date) => {
   const month = date.getMonth();
@@ -115,7 +117,16 @@ export const MainTable: React.FC<{}> = (props) => {
     startPoint
   );
   const searchText = useRef("");
-  const AccidentKeys = Object.keys(myAccidents[0]);
+
+  const tableNames: {
+    value: "title" | "createdAt" | "author" | "isFixed";
+    label: string;
+  }[] = [
+    { value: "title", label: "სათაური" },
+    { value: "author", label: "ავტორი" },
+    { value: "isFixed", label: "მოგვარებულია" },
+    { value: "createdAt", label: "თარიღი" },
+  ];
   const [activePage, setActivePage] = useState(1);
 
   const totalPages = itemLength / itemDisplay;
@@ -148,64 +159,84 @@ export const MainTable: React.FC<{}> = (props) => {
   );
 
   const sortByKey = useCallback(
-    (value: any) => {
+    (value: "title" | "createdAt" | "author" | "isFixed") => {
+      let sortedItems: IAccident[] = [] as IAccident[];
       if (value === "createdAt") {
-        const visible = vissibleAccidents.sort((a, b) => {
+        sortedItems = vissibleAccidents.sort((a, b) => {
           if (descOrder) {
             setDescOrder(false);
-            return a.createdAt.getTime() - b.createdAt.getTime();
+            return a[value].getTime() - b[value].getTime();
           } else {
             setDescOrder(true);
-            return b.createdAt.getTime() - a.createdAt.getTime();
+            return b[value].getTime() - a[value].getTime();
           }
         });
-        setVissibleAccidents(visible);
-      } else if (value === "title") {
-        const visible = vissibleAccidents.sort((a, b) => {
+      } else if (value === "isFixed") {
+        sortedItems = vissibleAccidents.sort((a, b) => {
           if (descOrder) {
             setDescOrder(false);
-            return a.title.localeCompare(b.title);
+            return a[value] === b[value] ? 0 : a[value] ? -1 : 1;
           } else {
             setDescOrder(true);
-            return b.title.localeCompare(a.title);
+            return a[value] === b[value] ? 0 : b[value] ? -1 : 1;
           }
         });
-        console.log(visible, "vis");
-        setVissibleAccidents(visible);
+      } else {
+        sortedItems = vissibleAccidents.sort((a, b) => {
+          if (descOrder) {
+            setDescOrder(false);
+            return a[value].localeCompare(b[value]);
+          } else {
+            setDescOrder(true);
+            return b[value].localeCompare(a[value]);
+          }
+        });
       }
+      setVissibleAccidents(sortedItems);
     },
     [vissibleAccidents, descOrder]
   );
 
   return (
     <div>
-      <div>
-        <div className="searchWithButton">
-          <div
-            onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) =>
-              onEnterClick(e)
+      <div className="searchWithButton">
+        <div
+          onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) =>
+            onEnterClick(e)
+          }
+        >
+          <MailInput
+            placeholder={"ძებნა..."}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              (searchText.current = e.target.value)
             }
-          >
-            <MailInput
-              placeholder={"ძებნა..."}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                (searchText.current = e.target.value)
-              }
-            />
-          </div>
-          <button onClick={onFindSearchText} className="searhButton">
-            დასტური
-          </button>
+          />
         </div>
-        <div className="accident">
-          <div className="accidentTitle" onClick={() => sortByKey("title")}>
-            სათაური
-          </div>
-          <div className="accidentauthor">ავტორი</div>
-          <div className="accidentisFixed">მოგვარებულია</div>
-          <div className="accidentDate" onClick={() => sortByKey("createdAt")}>
-            თარიღი
-          </div>
+        <button onClick={onFindSearchText} className="searhButton">
+          დასტური
+        </button>
+      </div>
+      <div className="accidentTableContainer">
+        <div
+          className="accident"
+          style={{ padding: "0 15px", background: "#9898ff" }}
+        >
+          {tableNames.map((table) => (
+            <div
+              onClick={() => sortByKey(table.value)}
+              className={classNames(
+                table.value === "title"
+                  ? "accidentTitle"
+                  : table.value === "author"
+                  ? "accidentauthor"
+                  : "accidentDate",
+                "tableName"
+              )}
+            >
+              {table.label}
+              <img src={doubleArrow} alt="up" className="doubleArrow" />
+            </div>
+          ))}
         </div>
         {vissibleAccidents.map((accident) => (
           <Accident key={accident.id} accident={accident} />
