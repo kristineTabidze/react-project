@@ -1,9 +1,10 @@
 import React, {
-  useState,
   useCallback,
+  useEffect,
   useMemo,
   useRef,
-  useEffect,
+  useState,
+  ChangeEvent,
 } from "react";
 import {
   DragDropContext,
@@ -12,28 +13,12 @@ import {
   DropResult,
   ResponderProvided,
 } from "react-beautiful-dnd";
-import { GeneralInput } from "../input/auth-input";
-import "./styles/add-new.css";
-import ReactQuill, { Quill } from "react-quill";
+import ImageUploading, { ImageListType } from "react-images-uploading";
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import ImageUploader from "react-images-upload";
-import doubleArrow from "./styles/double-arrow.svg";
+import { GeneralInput, Textarea } from "../input/auth-input";
+import "./styles/add-new.css";
 
-import ImageUploading, {
-  ImageUploadingPropsType,
-  ImageListType,
-  ImageType,
-} from "react-images-uploading";
-
-import Resizer from "react-image-file-resizer";
-
-const getItems = (count: number) =>
-  Array.from({ length: count }, (v, k) => k).map((k) => ({
-    id: `item-${k}`,
-    content: `item ${k}`,
-  }));
-
-// a little function to help us with reordering the result
 const reorder = (list: any, startIndex: number, endIndex: number) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
@@ -45,22 +30,21 @@ const reorder = (list: any, startIndex: number, endIndex: number) => {
 const grid = 8;
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
-  // some basic styles to make the items look a bit nicer
   userSelect: "none",
   padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
-
-  // styles we need to apply on draggables
+  borderRadius: 15,
+  background: isDragging ? "#dde1e7" : "white",
+  textAlign: "center",
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver: boolean) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: grid,
-  width: "100%",
+  borderRadius: 28,
+  background: isDraggingOver ? "#b3c1e7" : "rgb(115 144 225)",
+  padding: `${grid}px ${2 * grid}px`,
+  paddingTop: 2 * grid,
+  width: "calc(100% - 300px)",
 });
 
 interface IWholeText {
@@ -70,30 +54,20 @@ interface IWholeText {
 
 export const AddNewAccident: React.FC<{}> = (props) => {
   const [textTitle, setTextTitle] = useState("");
-  const [images, setImages] = useState<ImageListType>([] as ImageListType);
-  const quillRef = useRef<ReactQuill>(null);
-  const [textBody, setTextBody] = useState("");
-  const [isImageUploaderVissible, setImageUploaderVissible] = useState(false);
   const [wholeText, setWholeText] = useState<IWholeText>({} as IWholeText);
   const [wholeBody, setWholeBody] = useState<string[]>([] as string[]);
 
   const onTextTitleChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setTextTitle(event.target.value);
+    (event: ChangeEvent<HTMLTextAreaElement>) => {
+      setTextTitle(event.target.innerText);
     },
     []
   );
 
   const [items, setItems] = useState<{ element: JSX.Element; id: string }[]>([
     {
-      element: (
-        <GeneralInput onChange={onTextTitleChange} defaultValue={textTitle} />
-      ),
-      id: "1",
-    },
-    {
       element: <RichTextWithPhoto setWholeBody={setWholeBody} />,
-      id: "2",
+      id: "1",
     },
   ]);
   const onDragEnd = (result: DropResult, provided: ResponderProvided) => {
@@ -110,35 +84,27 @@ export const AddNewAccident: React.FC<{}> = (props) => {
     setItems(newItems);
   };
 
-  const modules: StringMap = useMemo(
-    () => ({
-      toolbar: {
-        container: [
-          [{ header: "1" }, { size: [] }],
-          ["bold", "italic", "underline", "strike", "blockquote"],
-          [{ list: "ordered" }, { list: "bullet" }],
-          ["link", "image", "video"],
-          ["clean"],
-        ],
-        handlers: {
-          image: () => {
-            isImageUploaderVissible
-              ? setImageUploaderVissible(false)
-              : setImageUploaderVissible(true);
-          },
-        },
-      },
-    }),
-    [isImageUploaderVissible]
-  );
+  const onAddNewBox = useCallback(() => {
+    const newId = +items[items.length - 1].id + 1 + "";
+    setItems((x) => [
+      ...x,
+      { element: <RichTextWithPhoto setWholeBody={setWholeBody} />, id: newId },
+    ]);
+  }, [items]);
 
-  const onChange = (imageList: ImageListType) => {
-    // data for submit
-    setImages(imageList);
-  };
+  const onPublish = useCallback(() => {
+    setWholeText({ body: wholeBody, title: textTitle });
+  }, [wholeBody, textTitle]);
 
   return (
-    <>
+    <div className="addNewContainer">
+      <div className="textAreaContainer">
+        <Textarea
+          onChange={onTextTitleChange}
+          defaultValue={textTitle}
+          placeHolder="სათაური"
+        />
+      </div>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
@@ -169,45 +135,13 @@ export const AddNewAccident: React.FC<{}> = (props) => {
           )}
         </Droppable>
       </DragDropContext>
-      {/* <ReactQuill
-        className={"blogBody"}
-        ref={quillRef}
-        defaultValue={textBody}
-        onChange={setTextBody}
-        modules={modules}
-      />
-
-      <>
-        {isImageUploaderVissible && (
-          <ImageUploading
-            onChange={onChange}
-            maxNumber={maxNumber}
-            multiple
-            maxFileSize={maxMbFileSize}
-            acceptType={["jpg", "gif", "png"]}
-          >
-            {({ imageList, onImageUpload, onImageRemoveAll }) => (
-              <div>
-                <button onClick={onImageUpload}>სურათების ატვირთვა</button>
-                <button onClick={onImageRemoveAll}>სურათების წაშლა</button>
-
-                {imageList.map((image) => {
-                  setImages((x) => imageList);
-                })}
-              </div>
-            )}
-          </ImageUploading>
-        )}
-
-        {images.map((image) => (
-          <div key={image.key}>
-            <img src={image.dataURL} width={200} />
-            <button onClick={image.onUpdate}>რედაქტირება</button>
-            <button onClick={image.onRemove}>წაშლა</button>
-          </div>
-        ))}
-      </> */}
-    </>
+      <div className="addButton" onClick={onAddNewBox}>
+        <div>+</div>
+      </div>
+      <div onClick={onPublish} className="publishButton">
+        გამოქვეყნება
+      </div>
+    </div>
   );
 };
 
@@ -226,7 +160,7 @@ const RichTextWithPhoto: React.FC<{ setWholeBody: (args: any) => void }> = ({
           [{ header: "1" }, { size: [] }],
           ["bold", "italic", "underline", "strike", "blockquote"],
           [{ list: "ordered" }, { list: "bullet" }],
-          ["link", "image", "video"],
+          ["image", "video"],
           ["clean"],
         ],
         handlers: {
@@ -241,27 +175,33 @@ const RichTextWithPhoto: React.FC<{ setWholeBody: (args: any) => void }> = ({
     [isImageUploaderVissible]
   );
 
-  const onChange = (imageList: ImageListType) => {
-    // data for submit
-    var range = quillRef.current && quillRef.current.getEditor().getSelection();
-    console.log(imageList);
-    // var value = prompt("What is the image URL");
-    imageList.map((image) => {
-      if (quillRef.current && range) {
-        quillRef.current
-          .getEditor()
-          .insertEmbed(range.index, "image", image.dataURL, "user");
-      }
-    });
+  const onChange = useCallback(
+    (imageList: ImageListType) => {
+      // data for submit
+      var range =
+        quillRef.current && quillRef.current.getEditor().getSelection();
+      imageList.map((image) => {
+        if (quillRef.current && range) {
+          quillRef.current
+            .getEditor()
+            .insertEmbed(range.index, "image", image.dataURL, "user");
+        }
+      });
 
-    setImages(imageList);
-    setWholeBody((x: any) => [...x, imageList]);
-  };
+      setImages(imageList);
+      setWholeBody((x: any) => [...x, imageList]);
+    },
+    [setWholeBody]
+  );
+
+  useEffect(() => {
+    setWholeBody((x: any) => [...x, textBody]);
+  }, [textBody, setWholeBody]);
 
   return (
     <>
       <ReactQuill
-        className={"blogBody"}
+        className={"textBody"}
         ref={quillRef}
         defaultValue={textBody}
         onChange={setTextBody}
@@ -280,11 +220,9 @@ const RichTextWithPhoto: React.FC<{ setWholeBody: (args: any) => void }> = ({
             {({ imageList, onImageUpload, onImageRemoveAll }) => (
               <div>
                 <button onClick={onImageUpload}>სურათების ატვირთვა</button>
-                <button onClick={onImageRemoveAll}>სურათების წაშლა</button>
-
+                {/* <button onClick={onImageRemoveAll}>სურათების წაშლა</button> */}
                 {imageList.map((image) => {
                   setImages((x) => imageList);
-                  setWholeBody((x: any) => [...x, imageList]);
                 })}
               </div>
             )}

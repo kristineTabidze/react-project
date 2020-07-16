@@ -5,6 +5,9 @@
   align-items: center;
   justify-content: center;
 }
+.containerWrapper {
+  width: 100%;
+}
 .inputContainer {
   outline: none;
   position: relative;
@@ -54,4 +57,17 @@
   border-bottom: 7px solid #ef6b85;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
+}
+.textAreaInput {
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px inset;
+  height: 33px;
+  width: calc(100% - 300px);
+  outline: none;
+  font-size: 20px;
+  margin: 4px 0px;
+  color: #4e4e4e;
+  text-align: center;
 }

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import "./styles/auth-input.css";
-import { useInput } from "../../hooks/input-hooks";
+import { useInput, useTextArea } from "../../hooks/input-hooks";
+import classNames from "classnames";
 
 interface IInputProps {
   defaultValue?: string | number;
@@ -44,3 +45,47 @@ export const MailInput: React.FC<IInputProps> = (props) => {
 export const PasswordInput: React.FC<IInputProps> = (props) => {
   return <GeneralInput type={"password"} {...props} />;
 };
+
+export const Textarea: React.FC<{
+  onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  defaultValue?: string;
+  mainContainerWrapperClassname?: string;
+  errorText?: string;
+  className?: string;
+  placeHolder?: string;
+}> = React.memo((props) => {
+  const inp = useTextArea(props.defaultValue, props.onChange);
+
+  return (
+    <div
+      className={
+        props.mainContainerWrapperClassname
+          ? props.mainContainerWrapperClassname
+          : "containerWrapper"
+      }
+    >
+      <div
+        style={{ width: "100%" }}
+        className={classNames(
+          "inputContainer",
+          props.errorText !== undefined && props.errorText !== null
+        )}
+      >
+        <textarea
+          className={props.className ? props.className : "textAreaInput"}
+          defaultValue={props.defaultValue}
+          placeholder={props.placeHolder}
+          {...inp}
+        />
+      </div>
+      <div>
+        {props.errorText && (
+          <div className={"errorTextContainer"}>
+            <div className={"triangle"}> </div>
+            <div className={"errorText"}>{props.errorText}</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+});
