@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Switch, useHistory, useLocation } from "react-router-dom";
 import { LoginPage } from "./components/log-in/log-in";
 import { MainTable } from "./components/main-table";
+import { AddNewAccident } from "./components/add-new-accident";
 
 export default function App() {
   const history = useHistory();
@@ -18,12 +19,13 @@ export default function App() {
               component={LoginPage}
               // location={location}
             ></Route> */}
-            <Route
+            {/* <Route
               path="/"
               exact={false}
               component={MainTable}
               // location={location}
-            />
+            /> */}
+            <Route path="/" exact={false} component={AddNewAccident} />
           </Switch>
         </div>
       </div>
