@@ -2,19 +2,7 @@ import React, { useRef, useCallback, useState, useEffect } from "react";
 import { MailInput, PasswordInput } from "../input/auth-input";
 import { useHistory } from "react-router-dom";
 import "./styles/log-in.css";
-
-const useCheckNumberInString = (input: string) => {
-  const [hasDigit, setHasDigit] = useState<boolean>(false);
-  useEffect(() => {
-    for (let i = 0; i <= 9; i++) {
-      if (input.indexOf(i + "") > -1) {
-        setHasDigit(true);
-      }
-    }
-  }, [input]);
-
-  return hasDigit;
-};
+import { useCheckNumberInString } from "src/hooks";
 
 export const LoginPage: React.FC<{}> = (props) => {
   const history = useHistory();

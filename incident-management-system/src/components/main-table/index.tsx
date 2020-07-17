@@ -4,13 +4,7 @@ import { MailInput } from "../input/auth-input";
 import "./styles/accident.css";
 import classNames from "classnames";
 import doubleArrow from "./styles/imgs/double-arrow.svg";
-
-const getDate = (date: Date) => {
-  const month = date.getMonth();
-  const day = date.getDate();
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-};
+import { getDate } from "../helper-functions";
 
 interface IAccident {
   title: string;

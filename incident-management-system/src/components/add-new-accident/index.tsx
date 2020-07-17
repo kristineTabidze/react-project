@@ -1,10 +1,10 @@
 import React, {
+  ChangeEvent,
   useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
-  ChangeEvent,
 } from "react";
 import {
   DragDropContext,
@@ -16,58 +16,38 @@ import {
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { GeneralInput, Textarea } from "../input/auth-input";
+import {
+  getItemStyle,
+  getListStyle,
+  mapOrder,
+  reorder,
+} from "../helper-functions";
+import { Textarea } from "../input/auth-input";
 import "./styles/add-new.css";
-
-const reorder = (list: any, startIndex: number, endIndex: number) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
-const grid = 8;
-
-const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
-  userSelect: "none",
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-  borderRadius: 15,
-  background: isDragging ? "#dde1e7" : "white",
-  textAlign: "center",
-  ...draggableStyle,
-});
-
-const getListStyle = (isDraggingOver: boolean) => ({
-  borderRadius: 28,
-  background: isDraggingOver ? "#b3c1e7" : "rgb(115 144 225)",
-  padding: `${grid}px ${2 * grid}px`,
-  paddingTop: 2 * grid,
-  width: "calc(100% - 300px)",
-});
 
 interface IWholeText {
   title: string;
-  body: string[];
+  body: { id: string; text: string }[];
 }
 
 export const AddNewAccident: React.FC<{}> = (props) => {
   const [textTitle, setTextTitle] = useState("");
   const [wholeText, setWholeText] = useState<IWholeText>({} as IWholeText);
-  const [wholeBody, setWholeBody] = useState<string[]>([] as string[]);
+  const [wholeBody, setWholeBody] = useState<{ id: string; text: string }[]>(
+    [] as { id: string; text: string }[]
+  );
 
   const onTextTitleChange = useCallback(
-    (event: ChangeEvent<HTMLTextAreaElement>) => {
-      setTextTitle(event.target.innerText);
+    (e: ChangeEvent<HTMLTextAreaElement>) => {
+      setTextTitle(e.target.value);
     },
     []
   );
 
   const [items, setItems] = useState<{ element: JSX.Element; id: string }[]>([
     {
-      element: <RichTextWithPhoto setWholeBody={setWholeBody} />,
       id: "1",
+      element: <RichTextWithPhoto setWholeBody={setWholeBody} id={"1"} />,
     },
   ]);
   const onDragEnd = (result: DropResult, provided: ResponderProvided) => {
@@ -88,13 +68,26 @@ export const AddNewAccident: React.FC<{}> = (props) => {
     const newId = +items[items.length - 1].id + 1 + "";
     setItems((x) => [
       ...x,
-      { element: <RichTextWithPhoto setWholeBody={setWholeBody} />, id: newId },
+      {
+        element: <RichTextWithPhoto setWholeBody={setWholeBody} id={newId} />,
+        id: newId,
+      },
     ]);
   }, [items]);
 
   const onPublish = useCallback(() => {
-    setWholeText({ body: wholeBody, title: textTitle });
-  }, [wholeBody, textTitle]);
+    const itemIds: string[] = [];
+    items.map((item) => {
+      itemIds.push(item.id);
+    });
+
+    const orderedBodyTexr: {
+      id: string;
+      text: string;
+    }[] = mapOrder(wholeBody, itemIds, "id");
+
+    setWholeText({ body: orderedBodyTexr, title: textTitle });
+  }, [wholeBody, textTitle, items]);
 
   return (
     <div className="addNewContainer">
@@ -145,9 +138,10 @@ export const AddNewAccident: React.FC<{}> = (props) => {
   );
 };
 
-const RichTextWithPhoto: React.FC<{ setWholeBody: (args: any) => void }> = ({
-  setWholeBody,
-}) => {
+const RichTextWithPhoto: React.FC<{
+  setWholeBody: (args: any) => void;
+  id: string;
+}> = ({ setWholeBody, id }) => {
   const [images, setImages] = useState<ImageListType>([] as ImageListType);
   const quillRef = useRef<ReactQuill>(null);
   const [textBody, setTextBody] = useState("");
@@ -189,14 +183,14 @@ const RichTextWithPhoto: React.FC<{ setWholeBody: (args: any) => void }> = ({
       });
 
       setImages(imageList);
-      setWholeBody((x: any) => [...x, imageList]);
+      setWholeBody((x: any) => [...x, { id: id, text: imageList }]);
     },
-    [setWholeBody]
+    [setWholeBody, id]
   );
 
   useEffect(() => {
-    setWholeBody((x: any) => [...x, textBody]);
-  }, [textBody, setWholeBody]);
+    setWholeBody((x: any) => [...x, { id: id, text: textBody }]);
+  }, [textBody, setWholeBody, id]);
 
   return (
     <>

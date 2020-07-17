@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ChangeEvent } from "react";
+import React, { useState, useCallback, ChangeEvent, useEffect } from "react";
 
 export const useInput = <
   T extends HTMLInputElement | HTMLTextAreaElement = HTMLInputElement
@@ -34,4 +34,17 @@ export const useTextArea = (
     [cb]
   );
   return { value, onChange };
+};
+
+export const useCheckNumberInString = (input: string) => {
+  const [hasDigit, setHasDigit] = useState<boolean>(false);
+  useEffect(() => {
+    for (let i = 0; i <= 9; i++) {
+      if (input.indexOf(i + "") > -1) {
+        setHasDigit(true);
+      }
+    }
+  }, [input]);
+
+  return hasDigit;
 };

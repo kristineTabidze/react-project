@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import "./styles/auth-input.css";
-import { useInput, useTextArea } from "../../hooks/input-hooks";
+import { useInput, useTextArea } from "../../hooks";
 import classNames from "classnames";
 
 interface IInputProps {
@@ -73,7 +73,6 @@ export const Textarea: React.FC<{
       >
         <textarea
           className={props.className ? props.className : "textAreaInput"}
-          defaultValue={props.defaultValue}
           placeholder={props.placeHolder}
           {...inp}
         />
