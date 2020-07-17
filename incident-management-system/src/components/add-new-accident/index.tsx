@@ -213,11 +213,13 @@ const RichTextWithPhoto: React.FC<{
           >
             {({ imageList, onImageUpload, onImageRemoveAll }) => (
               <div>
-                <button onClick={onImageUpload}>სურათების ატვირთვა</button>
+                <button onClick={onImageUpload} className="uploadImage">
+                  სურათების ატვირთვა
+                </button>
                 {/* <button onClick={onImageRemoveAll}>სურათების წაშლა</button> */}
-                {imageList.map((image) => {
+                {/* {imageList.map((image) => {
                   setImages((x) => imageList);
-                })}
+                })} */}
               </div>
             )}
           </ImageUploading>
