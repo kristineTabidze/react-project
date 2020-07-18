@@ -1,41 +1,45 @@
 import { PDFExport, savePDF } from "@progress/kendo-react-pdf";
 import ReactDOM from "react-dom";
-
 import React from "react";
+
+const pdfFileName = `new-accident/${new Date().getFullYear()}`;
 
 export class Bla extends React.Component {
   render() {
+    const retrieved = localStorage.getItem("wholeText");
+
+    if (!retrieved) return null;
+    const retrievedObject = JSON.parse(retrieved);
+
+    if (!retrievedObject.body || !retrievedObject.title) {
+      return null;
+    }
+
     return (
       <div>
-        <div className="example-config">
+        <div>
           <button className="k-button" onClick={this.exportPDFWithComponent}>
-            Export with component
+            ფაილის გადმოწერა
           </button>
           &nbsp;
-          <button className="k-button" onClick={this.exportPDFWithMethod}>
-            Export with method
-          </button>
         </div>
-        <div className="border rounded p-2">
+        <div>
           <PDFExport
             ref={(component) => (this.pdfExportComponent = component)}
             paperSize="auto"
             margin={40}
-            fileName={`Report for ${new Date().getFullYear()}`}
-            author="KendoReact Team"
+            fileName={pdfFileName}
+            author="User"
           >
             <div ref={(container) => (this.container = container)}>
-              <h3 className="text-center">Monthly report</h3>
-              <hr className="k-hr" />
-              {this.props.wholeBody.map((b) => (
+              <div> {retrievedObject.title}</div>
+              {retrievedObject.body.map((text, index) => (
                 <div
-                  key={b.id}
+                  key={index}
                   dangerouslySetInnerHTML={{
-                    __html: `${b.text}`,
+                    __html: `${text.text}`,
                   }}
-                >
-                  {/* {b.text.replace(/(<([^>]+)>)/gi, "")} */}
-                </div>
+                ></div>
               ))}
             </div>
           </PDFExport>
@@ -47,7 +51,7 @@ export class Bla extends React.Component {
     savePDF(ReactDOM.findDOMNode(this.container), {
       paperSize: "auto",
       margin: 40,
-      fileName: `Report for ${new Date().getFullYear()}`,
+      fileName: pdfFileName,
     });
   };
   exportPDFWithComponent = () => {
