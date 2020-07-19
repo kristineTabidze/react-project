@@ -9,12 +9,11 @@ export const LoginPage: React.FC<{}> = (props) => {
   const retrieved = localStorage.getItem("loggedUser");
   const retrievedObject = retrieved && JSON.parse(retrieved);
   const history = useHistory();
-  console.log(retrievedObject);
   const mail: React.MutableRefObject<string> = useRef(
-    retrievedObject.mail || ""
+    retrievedObject && retrievedObject.mail ? retrievedObject.mail : ""
   );
   const password: React.MutableRefObject<string> = useRef(
-    retrievedObject.password || ""
+    retrievedObject && retrievedObject.password ? retrievedObject.password : ""
   );
   const [passwordErrorText, setPasswordErrorText] = useState<string>("");
   const [mailErrorText, setMailErrorText] = useState<string>("");
@@ -44,7 +43,6 @@ export const LoginPage: React.FC<{}> = (props) => {
       setPasswordErrorText("პაროლი უნდა შეიცავდეს მინიმუმ 1 რიცხვს");
     } else if (!isNaN(Number(password.current[0]))) {
       setPasswordErrorText("პაროლი არ უნდა იწყებოდეს რიცხვით");
-      console.log("blaaa");
     } else {
       localStorage.setItem(
         "loggedUser",
