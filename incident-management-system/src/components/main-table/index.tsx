@@ -8,6 +8,7 @@ import { getDate } from "../helper-functions";
 import accidents from "../../accidents.json";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Header } from "./header";
+import { useHistory } from "react-router";
 
 export interface IAccident {
   title: string;
@@ -22,6 +23,9 @@ export const MainTable: React.FC<{}> = (props) => {
   const retrieved = localStorage.getItem("newAccident");
   const retrievedObject: IAccident | null = retrieved && JSON.parse(retrieved);
 
+  const retrievedLogged = localStorage.getItem("loggedUser");
+  const retrievedLoggedObject = retrieved && JSON.parse(retrieved);
+
   const [descOrder, setDescOrder] = useState<boolean>(false);
   const itemLength = myAccidents.length;
   const itemDisplay = 5;
@@ -31,6 +35,7 @@ export const MainTable: React.FC<{}> = (props) => {
     startPoint
   );
   const searchText = useRef("");
+  const history = useHistory();
 
   useEffect(() => {
     if (retrievedObject) {

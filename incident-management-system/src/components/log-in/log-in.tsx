@@ -24,6 +24,8 @@ export const LoginPage: React.FC<{}> = (props) => {
     mail.current = e.target.value;
   }, []);
 
+  const [hasError, setHasError] = useState<boolean>(false);
+
   const onPasswordChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       password.current = e.target.value;
@@ -34,23 +36,31 @@ export const LoginPage: React.FC<{}> = (props) => {
   const onRedirectMainTablePage = useCallback(() => {
     const checkMail = checkEmail(mail.current);
     if (!checkMail) {
+      setHasError(true);
       setMailErrorText("ელ.ფოსტა ვალიდური სახის უნდა იყოს");
-    } else if (password.current.length < 8 || password.current.length > 16) {
+    }
+    if (password.current.length < 8 || password.current.length > 16) {
       setPasswordErrorText(
         "პაროლი უნდა შეიცავდეს მინიმუმ 8, მაქსიმუმ 16 სიმბოლოს"
       );
-    } else if (!hasPasswordDigit) {
+      setHasError(true);
+    }
+    if (!hasPasswordDigit) {
       setPasswordErrorText("პაროლი უნდა შეიცავდეს მინიმუმ 1 რიცხვს");
-    } else if (!isNaN(Number(password.current[0]))) {
+      setHasError(true);
+    }
+    if (!isNaN(Number(password.current[0]))) {
       setPasswordErrorText("პაროლი არ უნდა იწყებოდეს რიცხვით");
-    } else {
+      setHasError(true);
+    }
+    if (!hasError) {
       localStorage.setItem(
         "loggedUser",
         JSON.stringify({ mail: mail.current, password: password.current })
       ); //add to localstorage
       history.push("/table");
     }
-  }, [history, hasPasswordDigit]);
+  }, [history, hasPasswordDigit, hasError]);
 
   return (
     <div className="loginPage">
