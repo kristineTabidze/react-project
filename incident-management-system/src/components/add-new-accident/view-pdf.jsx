@@ -1,10 +1,11 @@
 import { PDFExport, savePDF } from "@progress/kendo-react-pdf";
 import ReactDOM from "react-dom";
 import React from "react";
+import "./styles/add-new.css";
 
 const pdfFileName = `new-accident/${new Date().getFullYear()}`;
 
-export class Bla extends React.Component {
+export class ViewPdf extends React.Component {
   render() {
     const retrieved = localStorage.getItem("wholeText");
 
@@ -16,7 +17,7 @@ export class Bla extends React.Component {
     }
 
     return (
-      <div>
+      <div className="pdfContainer">
         <div>
           <button className="k-button" onClick={this.exportPDFWithComponent}>
             ფაილის გადმოწერა
@@ -32,13 +33,14 @@ export class Bla extends React.Component {
             author="User"
           >
             <div ref={(container) => (this.container = container)}>
-              <div> {retrievedObject.title}</div>
+              <div className="text"> {retrievedObject.title}</div>
               {retrievedObject.body.map((text, index) => (
                 <div
                   key={index}
                   dangerouslySetInnerHTML={{
                     __html: `${text.text}`,
                   }}
+                  className="text"
                 ></div>
               ))}
             </div>

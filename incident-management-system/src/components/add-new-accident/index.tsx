@@ -22,8 +22,9 @@ import {
   reorder,
 } from "../helper-functions";
 import { Textarea } from "../input/auth-input";
-import { Bla } from "./bla";
+import { ViewPdf } from "./view-pdf";
 import "./styles/add-new.css";
+import { useHistory } from "react-router";
 
 interface IWholeText {
   title: string;
@@ -31,6 +32,7 @@ interface IWholeText {
 }
 
 export const AddNewAccident: React.FC<{}> = (props) => {
+  const history = useHistory();
   const [textTitle, setTextTitle] = useState("");
   const [wholeText, setWholeText] = useState<IWholeText>({} as IWholeText);
   const [wholeBody, setWholeBody] = useState<{ id: string; text: string }[]>(
@@ -86,14 +88,17 @@ export const AddNewAccident: React.FC<{}> = (props) => {
       text: string;
     }[] = mapOrder(wholeBody, itemIds, "id");
 
-    const newObj = {
+    const newAccident = {
       title: textTitle,
       body: orderedBodyTexr,
     };
-    setWholeText(newObj);
+    setWholeText(newAccident);
 
-    localStorage.setItem("wholeText", JSON.stringify(wholeText)); //add to localstorage
-  }, [wholeBody, textTitle, items, wholeText]);
+    localStorage.setItem("wholeText", JSON.stringify(newAccident)); //add to localstorage
+
+    window.open("/view");
+    // history.push("/view"); //redirect to view pdf
+  }, [wholeBody, textTitle, items, wholeText, history]);
 
   return (
     <div className="addNewContainer">
@@ -140,8 +145,6 @@ export const AddNewAccident: React.FC<{}> = (props) => {
       <div onClick={onPublish} className="publishButton">
         გამოქვეყნება
       </div>
-
-      <Bla wholeBody={wholeText} />
     </div>
   );
 };

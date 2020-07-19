@@ -1,35 +1,60 @@
+import { History } from "history";
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Switch, useHistory, useLocation } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
+import { AddNewAccident } from "./components/add-new-accident";
+import { ViewPdf } from "./components/add-new-accident/view-pdf";
 import { LoginPage } from "./components/log-in/log-in";
 import { MainTable } from "./components/main-table";
-import { AddNewAccident } from "./components/add-new-accident";
-import { Bla } from "./components/add-new-accident/bla";
 
-export default function App() {
-  const history = useHistory();
-  // const location = useLocation();
+export const HistoryContext = React.createContext<History>(
+  (null as any) as History
+);
+
+export default function App({
+  location,
+  isTeacher,
+  isStudent,
+  isMainAdmin,
+  isAuthenticated,
+  history,
+  locale,
+}: {
+  location: History["location"];
+  isTeacher: boolean;
+  isStudent: boolean;
+  isMainAdmin: boolean;
+  isAuthenticated: boolean;
+  history: History;
+  locale: string;
+}) {
   return (
-    <Router>
-      <div>
-        <div className="section">
-          <Switch>
-            {/* <Route
-              path="/"
-              exact={false}
-              component={LoginPage}
-              // location={location}
-            ></Route> */}
-            {/* <Route
-              path="/"
-              exact={false}
-              component={MainTable}
-              // location={location}
-            /> */}
-            <Route path="/" exact={false} component={Bla} />
-          </Switch>
-        </div>
-      </div>
-    </Router>
+    <HistoryContext.Provider value={history}>
+      <BrowserRouter>
+        <Route
+          location={location}
+          path="/"
+          exact={true}
+          component={LoginPage}
+        />
+        <Route
+          location={location}
+          path="/table"
+          exact={true}
+          component={MainTable}
+        />
+        <Route
+          location={location}
+          path="/create"
+          exact={true}
+          component={AddNewAccident}
+        />
+        <Route
+          location={location}
+          path="/view"
+          exact={true}
+          component={ViewPdf}
+        />
+      </BrowserRouter>
+    </HistoryContext.Provider>
   );
 }

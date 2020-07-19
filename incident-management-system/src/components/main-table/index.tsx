@@ -5,101 +5,16 @@ import "./styles/accident.css";
 import classNames from "classnames";
 import doubleArrow from "./styles/imgs/double-arrow.svg";
 import { getDate } from "../helper-functions";
+import accidents from "../../accidents.json";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 interface IAccident {
   title: string;
   author: string;
-  createdAt: Date;
+  createdAt: string;
   isFixed: boolean;
   id: string;
 }
-
-const accidents: IAccident[] = [
-  {
-    title: "ბბბბ",
-    author: "ქრისტინე ტაბ",
-    createdAt: new Date("2019-06-5"),
-    isFixed: false,
-    id: "1",
-  },
-  {
-    title: "აააა",
-    author: "ქრისტ ტაბ",
-    createdAt: new Date("2019-06-10"),
-    isFixed: true,
-    id: "2",
-  },
-  {
-    title: "ღდ",
-    author: "ქ ტაბ",
-    createdAt: new Date("2019-06-22"),
-    isFixed: false,
-    id: "3",
-  },
-  {
-    title: "გასას",
-    author: "ქრისტინე ტაბ",
-    createdAt: new Date("2019-06-28"),
-    isFixed: true,
-    id: "4",
-  },
-  {
-    title: "წქქ",
-    author: "ქრისტინე ტაბ",
-    createdAt: new Date("2019-06-28"),
-    isFixed: false,
-    id: "5",
-  },
-  {
-    title: "6 incidenti",
-    author: "ქრისტ ტაბ",
-    createdAt: new Date("2019-06-28"),
-    isFixed: true,
-    id: "6",
-  },
-  {
-    title: "7 ინციდენტი",
-    author: "ქ ტაბ",
-    createdAt: new Date("2019-06-28"),
-    isFixed: false,
-    id: "7",
-  },
-  {
-    title: "8 ინციდენტი",
-    author: "ქრისტინე ტაბ",
-    createdAt: new Date("2019-06-28"),
-    isFixed: true,
-    id: "8",
-  },
-  {
-    title: "9 ინციდენტი",
-    author: "ქრისტ ტაბ",
-    createdAt: new Date("2019-06-28"),
-    isFixed: true,
-    id: "9",
-  },
-  {
-    title: "10 ინციდენტი",
-    author: "ქ ტაბ",
-    createdAt: new Date("2019-06-28"),
-    isFixed: false,
-    id: "10",
-  },
-  {
-    title: "11 ინციდენტი",
-    author: "ქრისტინე ტაბ",
-    createdAt: new Date("2019-06-28"),
-    isFixed: true,
-    id: "11",
-  },
-  {
-    title: "12 ინციდენტი",
-    author: "ქრისტინე ტაბ",
-    createdAt: new Date("2019-06-28"),
-    isFixed: false,
-    id: "12",
-  },
-];
 
 export const MainTable: React.FC<{}> = (props) => {
   const [myAccidents, setMyAccidents] = useState<IAccident[]>(accidents);
@@ -122,8 +37,6 @@ export const MainTable: React.FC<{}> = (props) => {
     { value: "createdAt", label: "თარიღი" },
   ];
   const [activePage, setActivePage] = useState(1);
-
-  const totalPages = itemLength / itemDisplay;
 
   const handlePageChange = useCallback((pageNumber: number) => {
     setActivePage(pageNumber);
@@ -174,12 +87,15 @@ export const MainTable: React.FC<{}> = (props) => {
       let sortedItems: IAccident[] = [] as IAccident[];
       if (value === "createdAt") {
         sortedItems = vissibleAccidents.sort((a, b) => {
+          const aDate = new Date(a[value]);
+          const bDate = new Date(b[value]);
+
           if (descOrder) {
             setDescOrder(false);
-            return a[value].getTime() - b[value].getTime();
+            return aDate.getTime() - bDate.getTime();
           } else {
             setDescOrder(true);
-            return b[value].getTime() - a[value].getTime();
+            return bDate.getTime() - aDate.getTime();
           }
         });
       } else if (value === "isFixed") {
@@ -257,15 +173,13 @@ export const MainTable: React.FC<{}> = (props) => {
             searchedText={searchText.current}
           />
         ))}
-        <div>
-          <Pagination
-            activePage={activePage}
-            itemsCountPerPage={itemDisplay}
-            totalItemsCount={itemLength}
-            pageRangeDisplayed={5}
-            onChange={handlePageChange}
-          />
-        </div>
+        <Pagination
+          activePage={activePage}
+          itemsCountPerPage={itemDisplay}
+          totalItemsCount={itemLength}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+        />
       </div>
     </div>
   );
@@ -318,9 +232,6 @@ interface IItemNameProps {
 }
 const ItemName: React.FC<IItemNameProps> = (props) => {
   const searchedIndex = props.name.indexOf(props.searchQuery);
-  console.log(props.name, "name");
-  console.log(searchedIndex, "searchedIndex");
-  console.log(props.searchQuery, "searchQuery");
 
   return (
     <>

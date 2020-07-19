@@ -5,6 +5,19 @@
   cursor: text;
   outline: none;
 }
+@font-face {
+  font-family: "Roboto Geo Caps";
+  src: url("fonts/roboto-geo-caps.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+.text {
+  font-family: "Roboto Geo Caps";
+}
+.pdfContainer {
+  width: 100%;
+  background: #525659;
+}
 .addButton {
   width: 63px;
   height: 63px;
