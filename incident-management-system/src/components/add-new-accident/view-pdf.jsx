@@ -2,6 +2,7 @@ import { PDFExport, savePDF } from "@progress/kendo-react-pdf";
 import ReactDOM from "react-dom";
 import React from "react";
 import "./styles/add-new.css";
+import utf8 from "utf8";
 
 const pdfFileName = `new-accident/${new Date().getFullYear()}`;
 

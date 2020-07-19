@@ -10,6 +10,7 @@
   src: url("fonts/roboto-geo-caps.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-language-override: normal;
 }
 .text {
   font-family: "Roboto Geo Caps";
@@ -22,6 +23,10 @@
   flex-direction: column;
   padding-top: 20px;
   outline: none;
+}
+.submittedText {
+  font-family: "Roboto Geo Caps";
+  color: #22ae22;
 }
 .addButton {
   width: 63px;
@@ -62,6 +67,7 @@
   transition: 0.2s;
   font-weight: bold;
   border: none;
+  font-family: "Roboto Geo Caps";
 }
 .publishButton:hover {
   box-shadow: 0px 9px 29px -10px rgb(115 144 225);
@@ -78,6 +84,7 @@
   margin-top: 12px;
   transition: 0.2s;
   font-weight: bold;
+  font-family: "Roboto Geo Caps";
 }
 .uploadImage:hover {
   color: white;

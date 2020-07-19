@@ -150,8 +150,8 @@ export const MainTable: React.FC<{}> = (props) => {
       }
       setMyAccidents(sortedItems);
       const st = sortedItems.slice(
-        activePage - 1,
-        activePage + itemDisplay - 1
+        (activePage - 1) * itemDisplay,
+        (activePage - 1) * itemDisplay + itemDisplay
       );
       setVissibleAccidents(st);
     },

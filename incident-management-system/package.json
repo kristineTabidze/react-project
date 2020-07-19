@@ -48,7 +48,8 @@
     "react-search-field": "^1.0.0",
     "react-webpack": "^0.4.1",
     "reactjs-popup": "^1.5.0",
-    "ttf-loader": "^1.0.2"
+    "ttf-loader": "^1.0.2",
+    "utf8": "^3.0.0"
   },
   "scripts": {
     "svgr": "svgr -d src/img/ icons/",

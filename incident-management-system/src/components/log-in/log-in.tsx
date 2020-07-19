@@ -32,6 +32,9 @@ export const LoginPage: React.FC<{}> = (props) => {
     const checkMail = checkEmail(mail.current);
     const checkPassword = CheckPassword(password.current);
 
+    if (checkMail) setMailErrorText("");
+    if (checkPassword) setPasswordErrorText("");
+
     if (!checkMail) {
       setMailErrorText("ელ.ფოსტა ვალიდური სახის უნდა იყოს");
     } else if (!checkPassword) {

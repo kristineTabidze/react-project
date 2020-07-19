@@ -22,11 +22,9 @@ import {
   reorder,
 } from "../helper-functions";
 import { Textarea } from "../input/auth-input";
-import { ViewPdf } from "./view-pdf";
-import "./styles/add-new.css";
-import { useHistory } from "react-router";
 import { IAccident } from "../main-table";
 import { Header } from "../main-table/header";
+import "./styles/add-new.css";
 
 interface IWholeText {
   title: string;
@@ -34,7 +32,6 @@ interface IWholeText {
 }
 
 export const AddNewAccident: React.FC<{}> = (props) => {
-  const history = useHistory();
   const [textTitle, setTextTitle] = useState("");
   const [wholeText, setWholeText] = useState<IWholeText>({} as IWholeText);
   const [wholeBody, setWholeBody] = useState<{ id: string; text: string }[]>(
@@ -156,7 +153,7 @@ export const AddNewAccident: React.FC<{}> = (props) => {
           <div>+</div>
         </div>
         <div onClick={onPublish} className="publishButton">
-          გამოქვეყნება
+          დამატება
         </div>
       </div>
     </>
@@ -170,6 +167,7 @@ const RichTextWithPhoto: React.FC<{
   const quillRef = useRef<ReactQuill>(null);
   const [textBody, setTextBody] = useState("");
   const [isImageUploaderVissible, setImageUploaderVissible] = useState(false);
+  const [isClickedOnSubmit, setIsClickedOnSubmit] = useState<boolean>(false);
 
   const modules: StringMap = useMemo(
     () => ({
@@ -208,6 +206,7 @@ const RichTextWithPhoto: React.FC<{
 
   const onFinishWriting = useCallback(() => {
     setWholeBody((x: any) => [...x, { id: id, text: textBody }]);
+    setIsClickedOnSubmit(true);
   }, [id, setWholeBody, textBody]);
 
   return (
@@ -243,9 +242,13 @@ const RichTextWithPhoto: React.FC<{
           </ImageUploading>
         )}
       </>
-      <button className="uploadImage" onClick={onFinishWriting}>
-        დასტური
-      </button>
+      {isClickedOnSubmit ? (
+        <div className="submittedText">ტექსტი დადასტურდა</div>
+      ) : (
+        <button className="uploadImage" onClick={onFinishWriting}>
+          დასტური
+        </button>
+      )}
     </>
   );
 };
