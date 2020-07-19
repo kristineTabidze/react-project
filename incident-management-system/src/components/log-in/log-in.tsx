@@ -1,9 +1,8 @@
 import React, { useCallback, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useCheckNumberInString } from "../../hooks";
+import { checkEmail, CheckPassword } from "../helper-functions";
 import { MailInput, PasswordInput } from "../input/auth-input";
 import "./styles/log-in.css";
-import { checkEmail } from "../helper-functions";
 
 export const LoginPage: React.FC<{}> = (props) => {
   const retrieved = localStorage.getItem("loggedUser");
@@ -18,13 +17,9 @@ export const LoginPage: React.FC<{}> = (props) => {
   const [passwordErrorText, setPasswordErrorText] = useState<string>("");
   const [mailErrorText, setMailErrorText] = useState<string>("");
 
-  const hasPasswordDigit = useCheckNumberInString(password.current);
-
   const onMailChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     mail.current = e.target.value;
   }, []);
-
-  const [hasError, setHasError] = useState<boolean>(false);
 
   const onPasswordChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,32 +30,24 @@ export const LoginPage: React.FC<{}> = (props) => {
 
   const onRedirectMainTablePage = useCallback(() => {
     const checkMail = checkEmail(mail.current);
+    const checkPassword = CheckPassword(password.current);
+
     if (!checkMail) {
-      setHasError(true);
       setMailErrorText("ელ.ფოსტა ვალიდური სახის უნდა იყოს");
-    }
-    if (password.current.length < 8 || password.current.length > 16) {
+    } else if (!checkPassword) {
       setPasswordErrorText(
-        "პაროლი უნდა შეიცავდეს მინიმუმ 8, მაქსიმუმ 16 სიმბოლოს"
+        "პაროლი უნდა შეიცავდეს მინიმუმ 8, მაქსიმუმ 16 სიმბოლოს და მინიმუმ 1 რიცხვს"
       );
-      setHasError(true);
-    }
-    if (!hasPasswordDigit) {
-      setPasswordErrorText("პაროლი უნდა შეიცავდეს მინიმუმ 1 რიცხვს");
-      setHasError(true);
-    }
-    if (!isNaN(Number(password.current[0]))) {
+    } else if (!isNaN(Number(password.current[0]))) {
       setPasswordErrorText("პაროლი არ უნდა იწყებოდეს რიცხვით");
-      setHasError(true);
-    }
-    if (!hasError) {
+    } else {
       localStorage.setItem(
         "loggedUser",
         JSON.stringify({ mail: mail.current, password: password.current })
       ); //add to localstorage
       history.push("/table");
     }
-  }, [history, hasPasswordDigit, hasError]);
+  }, [history]);
 
   return (
     <div className="loginPage">

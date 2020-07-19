@@ -35,16 +35,3 @@ export const useTextArea = (
   );
   return { value, onChange };
 };
-
-export const useCheckNumberInString = (input: string) => {
-  const [hasDigit, setHasDigit] = useState<boolean>(false);
-  useEffect(() => {
-    for (let i = 0; i <= 9; i++) {
-      if (input.indexOf(i + "") > -1) {
-        setHasDigit(true);
-      }
-    }
-  }, [input]);
-
-  return hasDigit;
-};

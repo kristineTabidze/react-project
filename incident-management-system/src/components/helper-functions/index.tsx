@@ -21,6 +21,15 @@ export function checkEmail(emailAddress: string) {
   return reValidEmail.test(emailAddress);
 }
 
+export function CheckPassword(inputtxt: string) {
+  var passw = /^(?=.*?[0-9]).{8,16}$/;
+  if (inputtxt.match(passw)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 export const getDate = (myDate: string) => {
   const date = new Date(myDate);
   const month = date.getMonth();
