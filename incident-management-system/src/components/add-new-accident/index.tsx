@@ -25,6 +25,8 @@ import { Textarea } from "../input/auth-input";
 import { ViewPdf } from "./view-pdf";
 import "./styles/add-new.css";
 import { useHistory } from "react-router";
+import { IAccident } from "../main-table";
+import { Header } from "../main-table/header";
 
 interface IWholeText {
   title: string;
@@ -79,6 +81,7 @@ export const AddNewAccident: React.FC<{}> = (props) => {
 
   const onPublish = useCallback(() => {
     const itemIds: string[] = [];
+    let newAccidentForTable: IAccident = {} as IAccident;
     items.map((item) => {
       itemIds.push(item.id);
     });
@@ -94,58 +97,69 @@ export const AddNewAccident: React.FC<{}> = (props) => {
     };
     setWholeText(newAccident);
 
+    newAccidentForTable = {
+      title: textTitle,
+      isFixed: true,
+      id: "20",
+      author: "user",
+      createdAt: "10/ 06/2020",
+    };
+
     localStorage.setItem("wholeText", JSON.stringify(newAccident)); //add to localstorage
+    localStorage.setItem("newAccident", JSON.stringify(newAccidentForTable)); //add to localstorage
 
     window.open("/view");
-    // history.push("/view"); //redirect to view pdf
-  }, [wholeBody, textTitle, items, wholeText, history]);
+  }, [wholeBody, textTitle, items, wholeText]);
 
   return (
-    <div className="addNewContainer">
-      <div className="textAreaContainer">
-        <Textarea
-          onChange={onTextTitleChange}
-          defaultValue={textTitle}
-          placeHolder="სათაური"
-        />
+    <>
+      <Header />
+      <div className="addNewContainer">
+        <div className="textAreaContainer">
+          <Textarea
+            onChange={onTextTitleChange}
+            defaultValue={textTitle}
+            placeHolder="სათაური"
+          />
+        </div>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                style={getListStyle(snapshot.isDraggingOver)}
+              >
+                {items.map((item, index) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={getItemStyle(
+                          snapshot.isDragging,
+                          provided.draggableProps.style
+                        )}
+                      >
+                        {item.element}
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+        <div className="addButton" onClick={onAddNewBox}>
+          <div>+</div>
+        </div>
+        <div onClick={onPublish} className="publishButton">
+          გამოქვეყნება
+        </div>
       </div>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
-            >
-              {items.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
-                    >
-                      {item.element}
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-      <div className="addButton" onClick={onAddNewBox}>
-        <div>+</div>
-      </div>
-      <div onClick={onPublish} className="publishButton">
-        გამოქვეყნება
-      </div>
-    </div>
+    </>
   );
 };
 

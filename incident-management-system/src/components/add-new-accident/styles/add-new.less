@@ -19,7 +19,12 @@
 
 .pdfContainer {
   width: 100%;
-  background: rgb(82, 86, 89);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 20px;
+  outline: none;
 }
 
 .addButton {
@@ -63,6 +68,7 @@
   cursor: pointer;
   transition: 0.2s;
   font-weight: bold;
+  border: none;
   &:hover {
     box-shadow: 0px 9px 29px -10px rgb(115 144 225);
   }

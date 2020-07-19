@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import Pagination from "react-js-pagination";
 import { MailInput } from "../input/auth-input";
 import "./styles/accident.css";
@@ -7,8 +7,9 @@ import doubleArrow from "./styles/imgs/double-arrow.svg";
 import { getDate } from "../helper-functions";
 import accidents from "../../accidents.json";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Header } from "./header";
 
-interface IAccident {
+export interface IAccident {
   title: string;
   author: string;
   createdAt: string;
@@ -18,14 +19,31 @@ interface IAccident {
 
 export const MainTable: React.FC<{}> = (props) => {
   const [myAccidents, setMyAccidents] = useState<IAccident[]>(accidents);
+  const retrieved = localStorage.getItem("newAccident");
+  const retrievedObject: IAccident | null = retrieved && JSON.parse(retrieved);
+
   const [descOrder, setDescOrder] = useState<boolean>(false);
   const itemLength = myAccidents.length;
-  const startPoint = accidents.slice(0, 5);
   const itemDisplay = 5;
+  const startPointFirst = myAccidents.slice(0, itemDisplay);
+  const [startPoint, setStartPoint] = useState<IAccident[]>(startPointFirst);
   const [vissibleAccidents, setVissibleAccidents] = useState<IAccident[]>(
     startPoint
   );
   const searchText = useRef("");
+
+  useEffect(() => {
+    if (retrievedObject) {
+      const newObj: IAccident = {
+        author: retrievedObject.author,
+        createdAt: retrievedObject.createdAt,
+        id: retrievedObject.id,
+        isFixed: retrievedObject.isFixed,
+        title: retrievedObject.title,
+      };
+      setMyAccidents((x) => [...x, newObj]);
+    }
+  }, []);
 
   const tableNames: {
     value: "title" | "createdAt" | "author" | "isFixed";
@@ -38,40 +56,46 @@ export const MainTable: React.FC<{}> = (props) => {
   ];
   const [activePage, setActivePage] = useState(1);
 
-  const handlePageChange = useCallback((pageNumber: number) => {
-    setActivePage(pageNumber);
-    setVissibleAccidents(
-      accidents.slice((pageNumber - 1) * itemDisplay, pageNumber * itemDisplay)
-    );
-  }, []);
+  const handlePageChange = useCallback(
+    (pageNumber: number) => {
+      setActivePage(pageNumber);
+      setVissibleAccidents(
+        myAccidents.slice(
+          (pageNumber - 1) * itemDisplay,
+          pageNumber * itemDisplay
+        )
+      );
+    },
+    [myAccidents]
+  );
 
   const onFindSearchText = useCallback(() => {
-    for (const accident of accidents) {
+    for (const accident of myAccidents) {
       const booleanString = accident.isFixed ? "კი" : "არა";
       const dateString = getDate(accident.createdAt);
       if (accident.title.indexOf(searchText.current) > -1) {
-        const index = accidents.indexOf(accident);
+        const index = myAccidents.indexOf(accident);
         const newPage =
           index < itemDisplay ? 1 : Math.ceil((index + 1) / itemDisplay);
         handlePageChange(newPage);
       } else if (accident.author.indexOf(searchText.current) > -1) {
-        const index = accidents.indexOf(accident);
+        const index = myAccidents.indexOf(accident);
         const newPage =
           index < itemDisplay ? 1 : Math.ceil((index + 1) / itemDisplay);
         handlePageChange(newPage);
       } else if (booleanString.indexOf(searchText.current) > -1) {
-        const index = accidents.indexOf(accident);
+        const index = myAccidents.indexOf(accident);
         const newPage =
           index < itemDisplay ? 1 : Math.ceil((index + 1) / itemDisplay);
         handlePageChange(newPage);
       } else if (dateString.indexOf(searchText.current) > -1) {
-        const index = accidents.indexOf(accident);
+        const index = myAccidents.indexOf(accident);
         const newPage =
           index < itemDisplay ? 1 : Math.ceil((index + 1) / itemDisplay);
         handlePageChange(newPage);
       }
     }
-  }, [activePage, handlePageChange, searchText.current]);
+  }, [activePage, handlePageChange, searchText.current, myAccidents]);
 
   const onEnterClick = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -86,7 +110,7 @@ export const MainTable: React.FC<{}> = (props) => {
     (value: "title" | "createdAt" | "author" | "isFixed") => {
       let sortedItems: IAccident[] = [] as IAccident[];
       if (value === "createdAt") {
-        sortedItems = vissibleAccidents.sort((a, b) => {
+        sortedItems = myAccidents.sort((a, b) => {
           const aDate = new Date(a[value]);
           const bDate = new Date(b[value]);
 
@@ -99,7 +123,7 @@ export const MainTable: React.FC<{}> = (props) => {
           }
         });
       } else if (value === "isFixed") {
-        sortedItems = vissibleAccidents.sort((a, b) => {
+        sortedItems = myAccidents.sort((a, b) => {
           if (descOrder) {
             setDescOrder(false);
             return a[value] === b[value] ? 0 : a[value] ? -1 : 1;
@@ -109,7 +133,7 @@ export const MainTable: React.FC<{}> = (props) => {
           }
         });
       } else {
-        sortedItems = vissibleAccidents.sort((a, b) => {
+        sortedItems = myAccidents.sort((a, b) => {
           if (descOrder) {
             setDescOrder(false);
             return a[value].localeCompare(b[value]);
@@ -119,13 +143,19 @@ export const MainTable: React.FC<{}> = (props) => {
           }
         });
       }
-      setVissibleAccidents(sortedItems);
+      setMyAccidents(sortedItems);
+      const st = sortedItems.slice(
+        activePage - 1,
+        activePage + itemDisplay - 1
+      );
+      setVissibleAccidents(st);
     },
-    [vissibleAccidents, descOrder]
+    [myAccidents, descOrder, activePage]
   );
 
   return (
     <div>
+      <Header />
       <div className="searchWithButton">
         <div
           onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) =>

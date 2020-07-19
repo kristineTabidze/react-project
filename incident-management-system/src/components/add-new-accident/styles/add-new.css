@@ -16,7 +16,12 @@
 }
 .pdfContainer {
   width: 100%;
-  background: #525659;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 20px;
+  outline: none;
 }
 .addButton {
   width: 63px;
@@ -56,6 +61,7 @@
   cursor: pointer;
   transition: 0.2s;
   font-weight: bold;
+  border: none;
 }
 .publishButton:hover {
   box-shadow: 0px 9px 29px -10px rgb(115 144 225);

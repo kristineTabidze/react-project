@@ -19,18 +19,13 @@ export class ViewPdf extends React.Component {
     return (
       <div className="pdfContainer">
         <div>
-          <button className="k-button" onClick={this.exportPDFWithComponent}>
-            ფაილის გადმოწერა
-          </button>
-          &nbsp;
-        </div>
-        <div>
           <PDFExport
             ref={(component) => (this.pdfExportComponent = component)}
             paperSize="auto"
             margin={40}
             fileName={pdfFileName}
             author="User"
+            proxyTarget={"_blank"}
           >
             <div ref={(container) => (this.container = container)}>
               <div className="text"> {retrievedObject.title}</div>
@@ -46,6 +41,15 @@ export class ViewPdf extends React.Component {
             </div>
           </PDFExport>
         </div>
+        <div>
+          <button
+            className="publishButton"
+            onClick={this.exportPDFWithComponent}
+          >
+            ფაილის გადმოწერა
+          </button>
+          &nbsp;
+        </div>
       </div>
     );
   }
@@ -54,6 +58,7 @@ export class ViewPdf extends React.Component {
       paperSize: "auto",
       margin: 40,
       fileName: pdfFileName,
+      proxyTarget: "_blank",
     });
   };
   exportPDFWithComponent = () => {
