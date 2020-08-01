@@ -53,22 +53,24 @@ export const LoginPage: React.FC<{}> = (props) => {
   }, [history]);
 
   return (
-    <div className="loginPage">
-      <MailInput
-        onChange={onMailChange}
-        placeholder={"ელ.ფოსტა"}
-        errorText={mailErrorText}
-        defaultValue={mail.current}
-      />
-      <PasswordInput
-        onChange={onPasswordChange}
-        placeholder={"პაროლი"}
-        errorText={passwordErrorText}
-        defaultValue={password.current}
-      />
-      <button onClick={onRedirectMainTablePage} className="approveButton">
-        დასტური
-      </button>
+    <div className="loginPageContainer">
+      <div className="loginPage">
+        <MailInput
+          onChange={onMailChange}
+          placeholder={"ელ.ფოსტა"}
+          errorText={mailErrorText}
+          defaultValue={mail.current}
+        />
+        <PasswordInput
+          onChange={onPasswordChange}
+          placeholder={"პაროლი"}
+          errorText={passwordErrorText}
+          defaultValue={password.current}
+        />
+        <button onClick={onRedirectMainTablePage} className="approveButton">
+          შესვლა
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,10 +1,14 @@
 .loginPage {
-  width: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin: 80px auto;
+  margin: 0 auto;
+  background-color: white;
+  width: max-content;
+  padding: 73px 103px 53px 93px;
+  border-radius: 25px;
+  box-shadow: 0px 13px 45px 12px #00000038;
 }
 
 .approveButton {
@@ -13,12 +17,20 @@
   padding: 10px 32px;
   border-radius: 20px;
   border: none;
-  background-image: linear-gradient(45deg, #3807ff, #39306a);
+  background-image: linear-gradient(45deg, #877bf1, #7ebdf8);
   color: white;
   font-size: 16px;
   cursor: pointer;
   transition: 0.2s;
+  font-family: "Roboto Geo Caps";
   &:hover {
-    background-image: linear-gradient(45deg, #39306a, #3807ff);
+    background-image: linear-gradient(45deg, #7ebdf8, #877bf1);
   }
+}
+
+.loginPageContainer {
+  width: 100%;
+  min-height: calc(100vh);
+  background-image: linear-gradient(90deg, #8a69ef, #7bd2f9);
+  padding-top: 130px;
 }

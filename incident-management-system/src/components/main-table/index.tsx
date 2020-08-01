@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState, useEffect } from "react";
 import Pagination from "react-js-pagination";
-import { MailInput } from "../input/auth-input";
+import { MailInput, GeneralInput } from "../input/auth-input";
 import "./styles/accident.css";
 import classNames from "classnames";
 import doubleArrow from "./styles/imgs/double-arrow.svg";
@@ -167,7 +167,7 @@ export const MainTable: React.FC<{}> = (props) => {
             onEnterClick(e)
           }
         >
-          <MailInput
+          <GeneralInput
             placeholder={"ძებნა..."}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               (searchText.current = e.target.value)

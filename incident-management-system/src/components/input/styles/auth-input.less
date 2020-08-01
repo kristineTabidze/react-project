@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: "Roboto Geo Caps";
 }
 
 .containerWrapper {
@@ -20,10 +21,10 @@
 
 .input {
   background-color: transparent;
-  border-radius: 5px;
+  border-radius: 29px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px inset;
-  font-size: 16px;
+  font-size: 14px;
   width: 222px;
   height: 40px;
   outline: none;
@@ -50,7 +51,7 @@
 }
 
 .errorText {
-  font-family: "Roboto Geo Nus";
+  font-family: "Roboto Geo Caps";
   font-size: 15px;
   background-color: rgba(255, 255, 255, 1);
   padding: 8px;
@@ -80,4 +81,18 @@
   margin: 4px 0px;
   color: #4e4e4e;
   text-align: center;
+  font-family: "Roboto Geo Caps";
+}
+
+.icon {
+  position: absolute;
+  top: calc(50% + 2px);
+  right: 0%;
+  transform: translate(-50%, -50%);
+  color: #a49d9d;
+  width: 21px;
+  cursor: pointer;
+  &:hover {
+    color: #554f4f;
+  }
 }

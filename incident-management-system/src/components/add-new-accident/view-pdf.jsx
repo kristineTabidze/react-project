@@ -47,7 +47,7 @@ export class ViewPdf extends React.Component {
             className="publishButton"
             onClick={this.exportPDFWithComponent}
           >
-            ფაილის გადმოწერა
+            PDF ფაილის გადმოწერა
           </button>
           &nbsp;
         </div>
