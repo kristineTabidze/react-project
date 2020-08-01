@@ -25,6 +25,7 @@ import { Textarea } from "../input/auth-input";
 import { IAccident } from "../main-table";
 import { Header } from "../main-table/header";
 import "./styles/add-new.css";
+import { ReactQuillWithoutImageUploadingPackage } from "./rich-text";
 
 interface IWholeText {
   title: string;
@@ -48,7 +49,12 @@ export const AddNewAccident: React.FC<{}> = (props) => {
   const [items, setItems] = useState<{ element: JSX.Element; id: string }[]>([
     {
       id: "1",
-      element: <RichTextWithPhoto setWholeBody={setWholeBody} id={"1"} />,
+      element: (
+        <ReactQuillWithoutImageUploadingPackage
+          setWholeBody={setWholeBody}
+          id={"1"}
+        />
+      ),
     },
   ]);
   const onDragEnd = (result: DropResult, provided: ResponderProvided) => {
@@ -70,7 +76,12 @@ export const AddNewAccident: React.FC<{}> = (props) => {
     setItems((x) => [
       ...x,
       {
-        element: <RichTextWithPhoto setWholeBody={setWholeBody} id={newId} />,
+        element: (
+          <ReactQuillWithoutImageUploadingPackage
+            setWholeBody={setWholeBody}
+            id={newId}
+          />
+        ),
         id: newId,
       },
     ]);
@@ -185,6 +196,22 @@ const RichTextWithPhoto: React.FC<{
             isImageUploaderVissible
               ? setImageUploaderVissible(false)
               : setImageUploaderVissible(true);
+          },
+        },
+        ImageResize: {
+          displaySize: true,
+          modules: ["Resize", "DisplaySize", "Toolbar"],
+          handleStyles: {
+            backgroundColor: "black",
+            border: "none",
+            color: "white",
+            // other camelCase styles for size display
+          },
+          displayStyles: {
+            backgroundColor: "black",
+            border: "none",
+            color: "white",
+            // other camelCase styles for size display
           },
         },
       },
