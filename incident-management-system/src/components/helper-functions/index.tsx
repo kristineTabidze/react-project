@@ -39,6 +39,7 @@ export const getDate = (myDate: string) => {
 };
 
 export const mapOrder = (array: any[], order: any[], key: any) => {
+  if (!array) return;
   array.sort(function (a, b) {
     var A = a[key],
       B = b[key];

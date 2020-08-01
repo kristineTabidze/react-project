@@ -83,14 +83,16 @@ export const AddNewAccident: React.FC<{}> = (props) => {
       itemIds.push(item.id);
     });
 
-    const orderedBodyTexr: {
-      id: string;
-      text: string;
-    }[] = mapOrder(wholeBody, itemIds, "id");
+    const orderedBodyTexr:
+      | {
+          id: string;
+          text: string;
+        }[]
+      | undefined = mapOrder(wholeBody, itemIds, "id");
 
     const newAccident = {
       title: textTitle,
-      body: orderedBodyTexr,
+      body: orderedBodyTexr ? orderedBodyTexr : [],
     };
     setWholeText(newAccident);
 
@@ -167,7 +169,6 @@ const RichTextWithPhoto: React.FC<{
   const quillRef = useRef<ReactQuill>(null);
   const [textBody, setTextBody] = useState("");
   const [isImageUploaderVissible, setImageUploaderVissible] = useState(false);
-  const [isClickedOnSubmit, setIsClickedOnSubmit] = useState<boolean>(false);
 
   const modules: StringMap = useMemo(
     () => ({
@@ -204,10 +205,23 @@ const RichTextWithPhoto: React.FC<{
     });
   }, []);
 
-  const onFinishWriting = useCallback(() => {
-    setWholeBody((x: any) => [...x, { id: id, text: textBody }]);
-    setIsClickedOnSubmit(true);
-  }, [id, setWholeBody, textBody]);
+  const onChangeQuillText = useCallback(
+    (quilText: string) => {
+      setTextBody(quilText);
+      setWholeBody((text: { id: string; text: string }[]) => {
+        let index;
+        for (let i = 0; i < (text ? text.length : 1); i++) {
+          if (text && text[i] && text[i].id === id) {
+            index = i;
+            break;
+          }
+        }
+        const textBeforeIndex = text.slice(0, index);
+        return [...textBeforeIndex, { id: id, text: quilText }];
+      });
+    },
+    [id, setWholeBody]
+  );
 
   return (
     <>
@@ -215,7 +229,7 @@ const RichTextWithPhoto: React.FC<{
         className={"textBody"}
         ref={quillRef}
         defaultValue={textBody}
-        onChange={setTextBody}
+        onChange={onChangeQuillText}
         modules={modules}
       />
 
@@ -233,22 +247,11 @@ const RichTextWithPhoto: React.FC<{
                 <button onClick={onImageUpload} className="uploadImage">
                   სურათების ატვირთვა
                 </button>
-                {/* <button onClick={onImageRemoveAll}>სურათების წაშლა</button> */}
-                {/* {imageList.map((image) => {
-                  setImages((x) => imageList);
-                })} */}
               </div>
             )}
           </ImageUploading>
         )}
       </>
-      {isClickedOnSubmit ? (
-        <div className="submittedText">ტექსტი დადასტურდა</div>
-      ) : (
-        <button className="uploadImage" onClick={onFinishWriting}>
-          დასტური
-        </button>
-      )}
     </>
   );
 };
