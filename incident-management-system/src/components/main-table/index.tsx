@@ -23,9 +23,6 @@ export const MainTable: React.FC<{}> = (props) => {
   const retrieved = localStorage.getItem("newAccident");
   const retrievedObject: IAccident | null = retrieved && JSON.parse(retrieved);
 
-  const retrievedLogged = localStorage.getItem("loggedUser");
-  const retrievedLoggedObject = retrieved && JSON.parse(retrieved);
-
   const [descOrder, setDescOrder] = useState<boolean>(false);
   const itemLength = myAccidents.length;
   const itemDisplay = 5;
@@ -35,7 +32,6 @@ export const MainTable: React.FC<{}> = (props) => {
     startPoint
   );
   const searchText = useRef("");
-  const history = useHistory();
 
   useEffect(() => {
     if (retrievedObject) {
