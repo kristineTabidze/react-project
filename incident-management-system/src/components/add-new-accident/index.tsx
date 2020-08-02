@@ -26,18 +26,22 @@ import { IAccident } from "../main-table";
 import { Header } from "../main-table/header";
 import "./styles/add-new.css";
 import { ReactQuillWithoutImageUploadingPackage } from "./rich-text";
+import { IBlog } from "../main-table/all-blog";
 
-interface IWholeText {
+export interface IBlogBody {
+  id: string;
+  text: string;
+}
+export interface IWholeText {
   title: string;
-  body: { id: string; text: string }[];
+  body: IBlogBody[];
 }
 
 export const AddNewAccident: React.FC<{}> = (props) => {
   const [textTitle, setTextTitle] = useState("");
   const [wholeText, setWholeText] = useState<IWholeText>({} as IWholeText);
-  const [wholeBody, setWholeBody] = useState<{ id: string; text: string }[]>(
-    [] as { id: string; text: string }[]
-  );
+  const [blogMainPhoto, setBlogMainPhoto] = useState<ImageListType>([]);
+  const [wholeBody, setWholeBody] = useState<IBlogBody[]>([] as IBlogBody[]);
 
   const onTextTitleChange = useCallback(
     (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -115,15 +119,28 @@ export const AddNewAccident: React.FC<{}> = (props) => {
       createdAt: "10/ 06/2020",
     };
 
+    const blogWithPhoto: IBlog = {
+      title: textTitle,
+      blogMainPhoto: blogMainPhoto,
+      blogBody: orderedBodyTexr ? orderedBodyTexr : [],
+    };
+
     localStorage.setItem("wholeText", JSON.stringify(newAccident)); //add to localstorage
     localStorage.setItem("newAccident", JSON.stringify(newAccidentForTable)); //add to localstorage
+    localStorage.setItem("newBlog", JSON.stringify(blogWithPhoto)); //add to localstorage
 
     window.open("/view");
-  }, [wholeBody, textTitle, items, wholeText]);
+  }, [wholeBody, textTitle, items, wholeText, blogMainPhoto]);
+
+  const onChange = useCallback((imageList: ImageListType) => {
+    // data for submit
+    setBlogMainPhoto(imageList);
+  }, []);
+
+  console.log(blogMainPhoto);
 
   return (
     <>
-      <Header />
       <div className="addNewContainer">
         <div className="textAreaContainer">
           <Textarea
@@ -132,6 +149,35 @@ export const AddNewAccident: React.FC<{}> = (props) => {
             placeHolder="სათაური"
           />
         </div>
+        <ImageUploading
+          onChange={onChange}
+          maxNumber={maxNumber}
+          multiple
+          maxFileSize={maxMbFileSize}
+          acceptType={["jpg", "gif", "png"]}
+        >
+          {({ imageList, onImageUpload, onImageRemoveAll }) => (
+            <div className="blogMainPhotoWithButtons">
+              <button onClick={onImageUpload} className="uploadImage">
+                ბლოგის მთავარი სურათის ატვირთვა
+              </button>
+              {imageList.map((image) => (
+                <div key={image.key}>
+                  <img src={image.dataURL} className="blogMainPhoto" />
+                  <div className="blogMainPhotoButtons">
+                    <button onClick={image.onUpdate} className="uploadImage">
+                      შეცვლა
+                    </button>
+                    <button onClick={image.onRemove} className="uploadImage">
+                      წაშლა
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </ImageUploading>
+
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="droppable">
             {(provided, snapshot) => (
@@ -166,7 +212,7 @@ export const AddNewAccident: React.FC<{}> = (props) => {
           <div>+</div>
         </div>
         <div onClick={onPublish} className="publishButton">
-          დამატება
+          ბლოგის შექმნა
         </div>
       </div>
     </>
@@ -235,7 +281,7 @@ const RichTextWithPhoto: React.FC<{
   const onChangeQuillText = useCallback(
     (quilText: string) => {
       setTextBody(quilText);
-      setWholeBody((text: { id: string; text: string }[]) => {
+      setWholeBody((text: IBlogBody[]) => {
         let index;
         for (let i = 0; i < (text ? text.length : 1); i++) {
           if (text && text[i] && text[i].id === id) {

@@ -12,14 +12,34 @@ export const Header: React.FC<{}> = (props) => {
     history.push("/create");
   }, [history]);
 
+  const redirectToAllBlogs = useCallback(() => {
+    history.push("/all-blog");
+  }, [history]);
+
+  const redirectToLoginPage = useCallback(() => {
+    history.push("/");
+  }, [history]);
+
+  const isAuthenticated = localStorage.getItem("loggedUser");
+
   return (
     <div className="headerContainer">
+      {!isAuthenticated && (
+        <div onClick={redirectToLoginPage} className="headerButton">
+          შესვლა
+        </div>
+      )}
       <div onClick={redirectToTable} className="headerButton">
-        ინციდენტების ჩამონათვალი
+        ბლოგების ცხრილი
       </div>
-      <div onClick={redirectToCreate} className="headerButton">
-        ინციდენტის შექმნა
+      <div onClick={redirectToAllBlogs} className="headerButton">
+        ბლოგების ჩამონათვალი
       </div>
+      {isAuthenticated && (
+        <div onClick={redirectToCreate} className="headerButton">
+          ბლოგის შექმნა
+        </div>
+      )}
     </div>
   );
 };

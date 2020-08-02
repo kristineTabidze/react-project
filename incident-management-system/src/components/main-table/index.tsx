@@ -1,14 +1,12 @@
-import React, { useCallback, useRef, useState, useEffect } from "react";
-import Pagination from "react-js-pagination";
-import { MailInput, GeneralInput } from "../input/auth-input";
-import "./styles/accident.css";
-import classNames from "classnames";
-import doubleArrow from "./styles/imgs/double-arrow.svg";
-import { getDate } from "../helper-functions";
-import accidents from "../../accidents.json";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Header } from "./header";
-import { useHistory } from "react-router";
+import classNames from "classnames";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import Pagination from "react-js-pagination";
+import accidents from "../../accidents.json";
+import { getDate } from "../helper-functions";
+import { GeneralInput } from "../input/auth-input";
+import "./styles/accident.css";
+import doubleArrow from "./styles/imgs/double-arrow.svg";
 
 export interface IAccident {
   title: string;
@@ -156,7 +154,6 @@ export const MainTable: React.FC<{}> = (props) => {
 
   return (
     <div>
-      <Header />
       <div className="searchWithButton">
         <div
           onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) =>

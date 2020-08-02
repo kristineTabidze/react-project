@@ -13,10 +13,6 @@ export class ViewPdf extends React.Component {
     if (!retrieved) return null;
     const retrievedObject = JSON.parse(retrieved);
 
-    if (!retrievedObject.body || !retrievedObject.title) {
-      return null;
-    }
-
     return (
       <div className="pdfContainer">
         <div>
