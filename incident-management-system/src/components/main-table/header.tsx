@@ -20,6 +20,11 @@ export const Header: React.FC<{}> = (props) => {
     history.push("/");
   }, [history]);
 
+  const logout = useCallback(() => {
+    localStorage.removeItem("loggedUser");
+    window.open("/", "_self");
+  }, []);
+
   const isAuthenticated = localStorage.getItem("loggedUser");
 
   return (
@@ -38,6 +43,11 @@ export const Header: React.FC<{}> = (props) => {
       {isAuthenticated && (
         <div onClick={redirectToCreate} className="headerButton">
           ბლოგის შექმნა
+        </div>
+      )}
+      {isAuthenticated && (
+        <div onClick={logout} className="headerButton">
+          გამოსვლა
         </div>
       )}
     </div>

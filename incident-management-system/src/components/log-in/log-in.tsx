@@ -48,12 +48,24 @@ export const LoginPage: React.FC<{}> = (props) => {
         "loggedUser",
         JSON.stringify({ mail: mail.current, password: password.current })
       ); //add to localstorage
-      history.push("/table");
+      window.open("/table", "_self");
     }
-  }, [history]);
+  }, []);
+
+  const onEnterClick = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "Enter") {
+        onRedirectMainTablePage();
+      }
+    },
+    [onRedirectMainTablePage]
+  );
 
   return (
-    <div className="loginPageContainer">
+    <div
+      className="loginPageContainer"
+      onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) => onEnterClick(e)}
+    >
       <div className="loginPage">
         <MailInput
           onChange={onMailChange}
