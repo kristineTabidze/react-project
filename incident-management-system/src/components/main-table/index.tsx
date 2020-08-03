@@ -162,14 +162,12 @@ export const MainTable: React.FC<{}> = (props) => {
         >
           <GeneralInput
             placeholder={"ძებნა..."}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              (searchText.current = e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              searchText.current = e.target.value;
+              onFindSearchText();
+            }}
           />
         </div>
-        <button onClick={onFindSearchText} className="searhButton">
-          დასტური
-        </button>
       </div>
       <div className="accidentTableContainer">
         <div

@@ -35,7 +35,7 @@ export const AllBlog: React.FC<{}> = (props) => {
           onClick={() => history.push("/view-blog")}
           className="enterBlogButton"
         >
-          შესვლა
+          ბლოგის ნახვა
         </div>
       </div>
     </div>
