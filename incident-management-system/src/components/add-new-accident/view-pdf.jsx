@@ -25,7 +25,7 @@ export class ViewPdf extends React.Component {
             proxyTarget={"_blank"}
           >
             <div ref={(container) => (this.container = container)}>
-              <div className="text"> {retrievedObject.title}</div>
+              <div> {retrievedObject.title}</div>
               {retrievedObject.body.map((text, index) => (
                 <div
                   key={index}

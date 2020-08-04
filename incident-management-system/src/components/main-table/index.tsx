@@ -50,7 +50,7 @@ export const MainTable: React.FC<{}> = (props) => {
   }[] = [
     { value: "title", label: "სათაური" },
     { value: "author", label: "ავტორი" },
-    { value: "isFixed", label: "მოგვარებულია" },
+    { value: "isFixed", label: "დასრულებულია" },
     { value: "createdAt", label: "თარიღი" },
   ];
   const [activePage, setActivePage] = useState(1);
