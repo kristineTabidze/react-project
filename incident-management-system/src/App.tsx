@@ -56,7 +56,7 @@ export default function App({
               component={ViewPdf}
               location={location}
             />
-            <Route
+            {/* <Route
               path="/all-blog"
               component={AllBlog}
               location={location}
@@ -67,7 +67,7 @@ export default function App({
               component={ViewBlog}
               location={location}
               exact={true}
-            />
+            /> */}
           </Switch>
         </BrowserRouter>
       </HistoryContext.Provider>
