@@ -19,7 +19,7 @@ export interface IAccident {
 export const MainTable: React.FC<{}> = (props) => {
   const [myAccidents, setMyAccidents] = useState<IAccident[]>(accidents);
   const retrieved = localStorage.getItem("newAccident");
-  const retrievedObject: IAccident | null = retrieved && JSON.parse(retrieved);
+  const retrievedObject: IAccident[] = retrieved ? JSON.parse(retrieved) : [];
 
   const [descOrder, setDescOrder] = useState<boolean>(false);
   const itemLength = myAccidents.length;
@@ -33,14 +33,7 @@ export const MainTable: React.FC<{}> = (props) => {
 
   useEffect(() => {
     if (retrievedObject) {
-      const newObj: IAccident = {
-        author: retrievedObject.author,
-        createdAt: retrievedObject.createdAt,
-        id: retrievedObject.id,
-        isFixed: retrievedObject.isFixed,
-        title: retrievedObject.title,
-      };
-      setMyAccidents((x) => [...x, newObj]);
+      setMyAccidents((x) => [...x, ...retrievedObject]);
     }
   }, []);
 
@@ -192,9 +185,9 @@ export const MainTable: React.FC<{}> = (props) => {
             </div>
           ))}
         </div>
-        {vissibleAccidents.map((accident) => (
+        {vissibleAccidents.map((accident, index) => (
           <Accident
-            key={accident.id}
+            key={index}
             accident={accident}
             searchedText={searchText.current}
           />
