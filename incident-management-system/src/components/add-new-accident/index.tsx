@@ -38,6 +38,8 @@ export interface IWholeText {
 }
 
 export const AddNewAccident: React.FC<{}> = (props) => {
+  const retrievedUser = localStorage.getItem("loggedUser");
+  const retrievedUserObject = retrievedUser && JSON.parse(retrievedUser);
   const [textTitle, setTextTitle] = useState("");
   const [wholeText, setWholeText] = useState<IWholeText>({} as IWholeText);
   const [blogMainPhoto, setBlogMainPhoto] = useState<ImageListType>([]);
@@ -118,7 +120,7 @@ export const AddNewAccident: React.FC<{}> = (props) => {
       title: textTitle,
       isFixed: true,
       id: "20",
-      author: "user",
+      author: retrievedUserObject.mail || "user",
       createdAt: "10/ 06/2020",
     };
 

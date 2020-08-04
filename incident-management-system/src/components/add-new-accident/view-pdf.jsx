@@ -9,6 +9,8 @@ const pdfFileName = `new-accident/${new Date().getFullYear()}`;
 export class ViewPdf extends React.Component {
   render() {
     const retrieved = localStorage.getItem("wholeText");
+    const retrievedUser = localStorage.getItem("loggedUser");
+    const retrievedUserObject = retrievedUser && JSON.parse(retrievedUser);
 
     if (!retrieved) return null;
     const retrievedObject = JSON.parse(retrieved);
@@ -21,7 +23,7 @@ export class ViewPdf extends React.Component {
             paperSize="auto"
             margin={40}
             fileName={pdfFileName}
-            author="User"
+            author={retrievedUserObject.mail || ""}
             proxyTarget={"_blank"}
           >
             <div ref={(container) => (this.container = container)}>
