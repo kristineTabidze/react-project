@@ -23,6 +23,7 @@
   flex-direction: column;
   padding-top: 80px;
   outline: none;
+  font-family: "Roboto Geo Caps";
 }
 .submittedText {
   font-family: "Roboto Geo Caps";

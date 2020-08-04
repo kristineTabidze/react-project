@@ -121,13 +121,14 @@ export const AddNewAccident: React.FC<{}> = (props) => {
 
     const blogWithPhoto: IBlog = {
       title: textTitle,
-      blogMainPhoto: blogMainPhoto,
+      blogMainPhoto: blogMainPhoto || [],
       blogBody: orderedBodyTexr ? orderedBodyTexr : [],
     };
 
-    localStorage.setItem("wholeText", JSON.stringify(newAccident)); //add to localstorage
-    localStorage.setItem("newAccident", JSON.stringify(newAccidentForTable)); //add to localstorage
-    localStorage.setItem("newBlog", JSON.stringify(blogWithPhoto)); //add to localstorage
+    localStorage.setItem("wholeText", JSON.stringify(newAccident)); //add to localstorage for pdf
+    localStorage.setItem("newAccident", JSON.stringify(newAccidentForTable)); //add to localstorage for table
+    localStorage.setItem("newBlog", JSON.stringify(blogWithPhoto)); //add to localstorage for blog intro
+    localStorage.setItem("viewBlog", JSON.stringify(newAccident)); //add to localstorage for view blog without pdf
 
     window.open("/view");
   }, [wholeBody, textTitle, items, wholeText, blogMainPhoto]);

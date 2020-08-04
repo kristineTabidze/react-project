@@ -37,9 +37,9 @@ export const Header: React.FC<{}> = (props) => {
       <div onClick={redirectToTable} className="headerButton">
         ბლოგების ცხრილი
       </div>
-      {/* <div onClick={redirectToAllBlogs} className="headerButton">
+      <div onClick={redirectToAllBlogs} className="headerButton">
         ბლოგების ჩამონათვალი
-      </div> */}
+      </div>
       {isAuthenticated && (
         <div onClick={redirectToCreate} className="headerButton">
           ბლოგის შექმნა

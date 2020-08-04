@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 import { ImageListType } from "react-images-uploading";
-import { IBlogBody } from "../add-new-accident";
-import { useHistory } from "react-router";
+import { IBlogBody, IWholeText } from "../add-new-accident";
 import "./styles/accident.css";
 import FirstBlogPhoto from "./styles/imgs/solar-system.jpg";
 
@@ -28,60 +27,48 @@ const blogs: IBlog[] = [
 export const AllBlog: React.FC<{ blog: IBlog }> = ({ blog }) => {
   const retrievedBlog = localStorage.getItem("newBlog");
   const retrievedBlogObject: IBlog = retrievedBlog && JSON.parse(retrievedBlog);
-  const history = useHistory();
   return (
     <div className="allBlogContainer">
       {blogs.map((blog, index) => (
         <Blog key={index} blog={blog} />
       ))}
-      <div className="blogContainer">
-        <div>
-          {retrievedBlogObject && retrievedBlogObject.title
-            ? retrievedBlogObject.title
-            : ""}
-        </div>
-        <img
-          src={
-            retrievedBlogObject &&
-            retrievedBlogObject.blogMainPhoto &&
-            retrievedBlogObject.blogMainPhoto[0] &&
-            typeof retrievedBlogObject.blogMainPhoto[0] !== "string"
-              ? retrievedBlogObject.blogMainPhoto[0].dataURL
-              : ""
-          }
-          className="blogMainPhoto"
-        />
-        <div
-          onClick={() => history.push("/view-blog")}
-          className="enterBlogButton"
-        >
-          ბლოგის ნახვა
-        </div>
-      </div>
+      <Blog blog={retrievedBlogObject} isNew={true} />
     </div>
   );
 };
 
-const Blog: React.FC<{ blog: IBlog }> = ({ blog }) => {
-  const [isClickedOnViewBlog, setClickedOnViewWholeBlog] = useState(false);
+const Blog: React.FC<{ blog: IBlog; isNew?: boolean }> = ({ blog, isNew }) => {
+  const imgSource =
+    !isNew && blog.blogMainPhoto && typeof blog.blogMainPhoto === "string"
+      ? blog.blogMainPhoto
+      : blog &&
+        blog.blogMainPhoto &&
+        typeof blog.blogMainPhoto !== "string" &&
+        blog.blogMainPhoto![0] &&
+        blog.blogMainPhoto[0].dataURL &&
+        blog.blogMainPhoto[0].dataURL
+      ? blog.blogMainPhoto[0].dataURL
+      : "";
+
+  const blogWithPhoto: IWholeText = {
+    title: blog && blog.title ? blog.title : "",
+    body: blog && blog.blogBody ? blog.blogBody : [],
+  };
+
+  const onClickViewBlog = useCallback(() => {
+    localStorage.setItem("viewBlog", JSON.stringify(blogWithPhoto)); //add to localstorage
+    window.open("/view-blog", "_self");
+  }, [blogWithPhoto]);
+
   return (
-    <div className="blogContainer">
-      <div>{blog.title}</div>
-      <img
-        src={
-          blog.blogMainPhoto && typeof blog.blogMainPhoto === "string"
-            ? blog.blogMainPhoto
-            : ""
-        }
-        className="blogMainPhoto"
-      />
-      <div
-        // onClick={() => history.push("/view-blog")}
-        onClick={() => setClickedOnViewWholeBlog(true)}
-        className="enterBlogButton"
-      >
-        ბლოგის ნახვა
-      </div>
+    <div className="blogContainer" onClick={onClickViewBlog}>
+      {blog && blog.title && <div>{blog.title}</div>}
+      <img src={imgSource} className="blogMainPhoto" />
+      {blog && (
+        <div onClick={onClickViewBlog} className="enterBlogButton">
+          ბლოგის ნახვა
+        </div>
+      )}
     </div>
   );
 };

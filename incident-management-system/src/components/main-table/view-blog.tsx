@@ -2,7 +2,7 @@ import React from "react";
 import { IWholeText } from "../add-new-accident";
 
 export const ViewBlog: React.FC<{}> = (props) => {
-  const retrieved = localStorage.getItem("wholeText");
+  const retrieved = localStorage.getItem("viewBlog");
   if (!retrieved) return null;
   const retrievedObject: IWholeText = JSON.parse(retrieved);
 

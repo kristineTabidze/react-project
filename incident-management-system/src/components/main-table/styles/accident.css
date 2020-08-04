@@ -98,6 +98,7 @@
   align-items: center;
   justify-content: center;
   font-family: "Roboto Geo Caps";
+  cursor: pointer;
 }
 .enterBlogButton {
   cursor: pointer;
