@@ -25,14 +25,17 @@ const blogs: IBlog[] = [
 ];
 
 export const AllBlog: React.FC<{ blog: IBlog }> = ({ blog }) => {
-  const retrievedBlog = localStorage.getItem("newBlog");
-  const retrievedBlogObject: IBlog = retrievedBlog && JSON.parse(retrievedBlog);
+  const retrieved = localStorage.getItem("newBlog");
+  const retrievedBlogs: IBlog[] = retrieved && JSON.parse(retrieved);
   return (
     <div className="allBlogContainer">
       {blogs.map((blog, index) => (
         <Blog key={index} blog={blog} />
       ))}
-      <Blog blog={retrievedBlogObject} isNew={true} />
+      {retrievedBlogs &&
+        retrievedBlogs.map((blog, index) => (
+          <Blog blog={blog} isNew={true} key={index} />
+        ))}
     </div>
   );
 };

@@ -95,6 +95,11 @@ export const AddNewAccident: React.FC<{}> = (props) => {
   }, [items]);
 
   const onPublish = useCallback(() => {
+    const retrievedAccident = localStorage.getItem("newAccident");
+    const retrievedAccidents: IAccident[] = retrievedAccident
+      ? JSON.parse(retrievedAccident)
+      : [];
+
     const itemIds: string[] = [];
     let newAccidentForTable: IAccident = {} as IAccident;
     items.map((item) => {
@@ -127,10 +132,17 @@ export const AddNewAccident: React.FC<{}> = (props) => {
       blogMainPhoto: blogMainPhoto || [],
       blogBody: orderedBodyTexr ? orderedBodyTexr : [],
     };
+    const retrieved = localStorage.getItem("newBlog");
+    const retrievedBlogs: IBlog[] = retrieved ? JSON.parse(retrieved) : [];
 
+    let allBlog: IBlog[] = [...retrievedBlogs, blogWithPhoto];
+    const allNewBlogsForTable: IAccident[] = [
+      ...retrievedAccidents,
+      newAccidentForTable,
+    ];
     localStorage.setItem("wholeText", JSON.stringify(newAccident)); //add to localstorage for pdf
     localStorage.setItem("newAccident", JSON.stringify(newAccidentForTable)); //add to localstorage for table
-    localStorage.setItem("newBlog", JSON.stringify(blogWithPhoto)); //add to localstorage for blog intro
+    localStorage.setItem("newBlog", JSON.stringify(allBlog)); //add to localstorage for blog intro
     localStorage.setItem("viewBlog", JSON.stringify(newAccident)); //add to localstorage for view blog without pdf
 
     window.open("/view");
@@ -140,8 +152,6 @@ export const AddNewAccident: React.FC<{}> = (props) => {
     // data for submit
     setBlogMainPhoto(imageList);
   }, []);
-
-  console.log(blogMainPhoto);
 
   return (
     <>
