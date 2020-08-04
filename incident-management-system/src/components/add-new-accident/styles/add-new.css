@@ -47,12 +47,20 @@
   cursor: pointer;
   transition: 0.2s;
   position: fixed;
-  bottom: 20px;
+  bottom: 30px;
   right: 20px;
 }
 .addButton:hover {
   color: white;
   background-color: rgb(115 144 225);
+}
+.notificationTextForAddButton {
+  position: fixed;
+  bottom: 5px;
+  right: 20px;
+  font-family: "Roboto Geo Nus";
+  color: #e75e5e;
+  background-color: white;
 }
 .addNewContainer {
   width: 100%;

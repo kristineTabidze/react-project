@@ -42,6 +42,9 @@ export const AddNewAccident: React.FC<{}> = (props) => {
   const [wholeText, setWholeText] = useState<IWholeText>({} as IWholeText);
   const [blogMainPhoto, setBlogMainPhoto] = useState<ImageListType>([]);
   const [wholeBody, setWholeBody] = useState<IBlogBody[]>([] as IBlogBody[]);
+  const [isNotificationTextVissible, setNotificationTextVissibility] = useState(
+    false
+  );
 
   const onTextTitleChange = useCallback(
     (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -209,9 +212,19 @@ export const AddNewAccident: React.FC<{}> = (props) => {
             )}
           </Droppable>
         </DragDropContext>
-        <div className="addButton" onClick={onAddNewBox}>
+        <div
+          className="addButton"
+          onClick={onAddNewBox}
+          onMouseEnter={() => setNotificationTextVissibility(true)}
+          onMouseLeave={() => setNotificationTextVissibility(false)}
+        >
           <div>+</div>
         </div>
+        {isNotificationTextVissible && (
+          <div className="notificationTextForAddButton">
+            ახალი ველის დამატება
+          </div>
+        )}
         <div onClick={onPublish} className="publishButton">
           ბლოგის შექმნა
         </div>
