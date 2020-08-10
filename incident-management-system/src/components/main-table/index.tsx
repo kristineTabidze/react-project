@@ -1,10 +1,16 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import classNames from "classnames";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  ChangeEvent,
+} from "react";
 import Pagination from "react-js-pagination";
 import accidents from "../../accidents.json";
 import { getDate } from "../helper-functions";
-import { GeneralInput } from "../input/auth-input";
+import { GeneralInput, Textarea } from "../input/auth-input";
 import "./styles/accident.css";
 import doubleArrow from "./styles/imgs/double-arrow.svg";
 
@@ -152,13 +158,14 @@ export const MainTable: React.FC<{}> = (props) => {
           onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) =>
             onEnterClick(e)
           }
+          style={{ width: "100%" }}
         >
-          <GeneralInput
-            placeholder={"ძებნა..."}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          <Textarea
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
               searchText.current = e.target.value;
               onFindSearchText();
             }}
+            placeHolder="ძებნა..."
           />
         </div>
       </div>
