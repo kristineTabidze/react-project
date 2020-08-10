@@ -8,7 +8,7 @@ export const ViewBlog: React.FC<{}> = (props) => {
 
   return (
     <div className="pdfContainer">
-      <div>{retrievedObject.title}</div>
+      <div style={{ textAlign: "center" }}>{retrievedObject.title}</div>
       {retrievedObject.body.map((text, index) => (
         <div
           key={index}

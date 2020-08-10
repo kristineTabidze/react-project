@@ -4,7 +4,7 @@ import React from "react";
 import "./styles/add-new.css";
 import utf8 from "utf8";
 
-const pdfFileName = `new-accident/${new Date().getFullYear()}`;
+const pdfFileName = `new-blog/${new Date().getFullYear()}`;
 
 export class ViewPdf extends React.Component {
   render() {
@@ -27,7 +27,10 @@ export class ViewPdf extends React.Component {
             proxyTarget={"_blank"}
           >
             <div ref={(container) => (this.container = container)}>
-              <div> {retrievedObject.title}</div>
+              <div style={{ textAlign: "center" }}>
+                {" "}
+                {retrievedObject.title}
+              </div>
               {retrievedObject.body.map((text, index) => (
                 <div
                   key={index}
