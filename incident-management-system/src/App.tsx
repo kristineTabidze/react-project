@@ -33,9 +33,9 @@ export default function App({
     <>
       <HistoryContext.Provider value={history}>
         <BrowserRouter>
-          {/* <Header /> */}
+          <Header />
           <Switch>
-            {/* <Route
+            <Route
               location={location}
               path="/"
               component={LoginPage}
@@ -68,13 +68,13 @@ export default function App({
               component={ViewBlog}
               location={location}
               exact={true}
-            /> */}
-            <Route
+            />
+            {/* <Route
               path="/"
               component={SignUpInputs}
               location={location}
               exact={true}
-            />
+            /> */}
           </Switch>
         </BrowserRouter>
       </HistoryContext.Provider>
