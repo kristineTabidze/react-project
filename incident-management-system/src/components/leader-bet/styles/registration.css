@@ -1,0 +1,148 @@
+.App {
+  background: #424242;
+  color: #fff;
+  margin: 20px 0;
+  border-radius: 3px;
+  text-align: center;
+}
+.inputContainerWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Roboto Geo Caps";
+}
+.containerWrapper {
+  width: 100%;
+}
+.inputContainer {
+  outline: none;
+  position: relative;
+  width: max-content;
+  height: 100%;
+  text-align: center;
+}
+.inputWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 15px 0;
+}
+.input,
+.menuFlags {
+  background: #616161;
+  border: none;
+  font-size: 14px;
+  text-indent: 20px;
+  width: 100%;
+  position: relative;
+  -webkit-transition: all 0s ease;
+  -moz-transition: all 0s ease;
+  -o-transition: all 0s ease;
+  -ms-transition: all 0s ease;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid transparent !important;
+  width: 276px !important;
+  height: 33px !important;
+  margin: 0 10px 0 20px;
+  color: white;
+  outline: none;
+}
+.input:hover,
+.menuFlags:hover {
+  background: white;
+  color: #616161;
+}
+.menuFlags {
+  width: 280px !important;
+}
+@font-face {
+  font-family: "Roboto Geo Caps";
+  src: url("fonts/roboto-geo-caps.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto Geo Nus";
+  src: url("fonts/roboto-geo-nus.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+.inputLabel {
+  width: 200px;
+  padding-right: 20px;
+  text-align: right;
+  float: left;
+  font-size: 14px !important;
+  line-height: 34px !important;
+  font-family: "Roboto Geo Caps" !important;
+}
+.star {
+  font-size: 13px;
+  color: #ff5050;
+  margin-left: 4px;
+}
+.errorTextContainer {
+  display: flex;
+  align-items: flex-start;
+}
+.errorText {
+  width: 200px;
+  border-radius: 2px;
+  background: #fff;
+  padding: 10px;
+  color: #a21d1d;
+  font-family: "Roboto Geo Nus";
+  font-weight: 400;
+  font-size: 13px;
+  transform-origin: top left;
+  transition: transform 0.95s ease;
+}
+.triangle {
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid white;
+  width: 0;
+  height: 0;
+  margin-top: 8px;
+  visibility: "hidden";
+}
+.icon {
+  position: absolute;
+  top: calc(50% + 2px);
+  right: 0%;
+  transform: translate(-50%, -50%);
+  color: #a49d9d;
+  width: 21px;
+  cursor: pointer;
+}
+.icon:hover {
+  color: #554f4f;
+}
+.dateSelectorsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 280px;
+  margin: 0 10px 0 20px;
+}
+.checkmark,
+.cross {
+  width: 34px;
+  height: 36px;
+  background-color: #bdbdbd;
+  color: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  bottom: -16px;
+}
+.cross {
+  background-color: transparent;
+  color: red;
+  cursor: pointer;
+}

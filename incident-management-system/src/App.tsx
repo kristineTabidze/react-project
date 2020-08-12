@@ -14,6 +14,7 @@ import { MainTable } from "./components/main-table";
 import { AllBlog } from "./components/main-table/all-blog";
 import { ViewBlog } from "./components/main-table/view-blog";
 import { Header } from "./components/main-table/header";
+import { SignUpInputs } from "./components/leader-bet";
 
 export const HistoryContext = React.createContext<History>(
   (null as any) as History
@@ -32,9 +33,9 @@ export default function App({
     <>
       <HistoryContext.Provider value={history}>
         <BrowserRouter>
-          <Header />
+          {/* <Header /> */}
           <Switch>
-            <Route
+            {/* <Route
               location={location}
               path="/"
               component={LoginPage}
@@ -65,6 +66,12 @@ export default function App({
             <Route
               path="/view-blog"
               component={ViewBlog}
+              location={location}
+              exact={true}
+            /> */}
+            <Route
+              path="/"
+              component={SignUpInputs}
               location={location}
               exact={true}
             />
