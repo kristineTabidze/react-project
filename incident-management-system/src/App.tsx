@@ -15,6 +15,7 @@ import { AllBlog } from "./components/main-table/all-blog";
 import { ViewBlog } from "./components/main-table/view-blog";
 import { Header } from "./components/main-table/header";
 import { SignUpInputs } from "./components/leader-bet";
+import { PhoneNumberSelector } from "./components/leader-bet/international-telephone-input";
 
 export const HistoryContext = React.createContext<History>(
   (null as any) as History

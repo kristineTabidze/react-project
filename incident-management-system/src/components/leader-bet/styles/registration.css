@@ -3,36 +3,28 @@
   color: #fff;
   margin: 20px 0;
   border-radius: 3px;
+  width: 787px;
   text-align: center;
+  margin: 0 auto;
 }
-.inputContainerWrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: "Roboto Geo Caps";
-}
-.containerWrapper {
-  width: 100%;
-}
-.inputContainer {
+.inputContainerForL {
   outline: none;
   position: relative;
   width: max-content;
   height: 100%;
   text-align: center;
 }
-.inputWrapper {
+.inputWrapperForL {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   margin: 15px 0;
+  height: 40px;
 }
-.input,
+.inputForL,
 .menuFlags {
-  background: #616161;
+  background: #616161 !important;
   border: none;
   font-size: 14px;
   text-indent: 20px;
@@ -47,13 +39,13 @@
   width: 276px !important;
   height: 33px !important;
   margin: 0 10px 0 20px;
-  color: white;
+  color: white !important;
   outline: none;
 }
-.input:hover,
+.inputForL:hover,
 .menuFlags:hover {
-  background: white;
-  color: #616161;
+  background: white !important;
+  color: #616161 !important;
 }
 .menuFlags {
   width: 280px !important;
@@ -84,15 +76,15 @@
   color: #ff5050;
   margin-left: 4px;
 }
-.errorTextContainer {
+.errorTextContainerForL {
   display: flex;
   align-items: flex-start;
 }
-.errorText {
+.errorTextForL {
   width: 200px;
   border-radius: 2px;
   background: #fff;
-  padding: 10px;
+  padding: 6px 10px;
   color: #a21d1d;
   font-family: "Roboto Geo Nus";
   font-weight: 400;
@@ -100,7 +92,7 @@
   transform-origin: top left;
   transition: transform 0.95s ease;
 }
-.triangle {
+.triangleForL {
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
   border-right: 10px solid white;
@@ -109,7 +101,7 @@
   margin-top: 8px;
   visibility: "hidden";
 }
-.icon {
+.iconForL {
   position: absolute;
   top: calc(50% + 2px);
   right: 0%;
@@ -118,7 +110,7 @@
   width: 21px;
   cursor: pointer;
 }
-.icon:hover {
+.iconForL:hover {
   color: #554f4f;
 }
 .dateSelectorsContainer {
@@ -129,7 +121,8 @@
   margin: 0 10px 0 20px;
 }
 .checkmark,
-.cross {
+.cross,
+.checkmarkForTelSelector {
   width: 34px;
   height: 36px;
   background-color: #bdbdbd;
@@ -139,10 +132,226 @@
   justify-content: center;
   position: absolute;
   right: 0;
-  bottom: -16px;
+  bottom: -14px;
+}
+.checkmarkForTelSelector {
+  height: 33px;
+  bottom: -11px;
 }
 .cross {
   background-color: transparent;
   color: red;
   cursor: pointer;
+}
+.menuPhone {
+  background: #616161 !important;
+  border: none;
+  font-size: 14px;
+  text-indent: 20px;
+  position: relative;
+  border-bottom: 1px solid transparent !important;
+  width: 280px !important;
+  height: 33px !important;
+  margin: 0 10px 0 20px;
+  color: white !important;
+  outline: none;
+  padding-left: 0px !important;
+  margin: 0 10px 0 0px !important;
+  padding-right: 0px !important;
+  cursor: text;
+}
+.menuPhone:hover {
+  color: #616161 !important;
+  background: white !important;
+}
+.menuFlagsInput {
+  position: relative;
+  z-index: 0;
+  padding-left: 3px !important;
+  margin-left: 28px !important;
+  border-radius: 0px !important;
+  background: transparent !important;
+  width: 261px !important;
+  border: none !important;
+  height: 34px !important;
+  box-shadow: none !important;
+  color: white !important;
+  width: 233px !important;
+}
+.menuFlagsInput:hover {
+  background: white !important;
+  color: #616161 !important;
+}
+.dropdownButtonClass {
+  border: none !important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  padding: 0;
+  background-color: transparent !important;
+  border-radius: 0px !important;
+  background: transparent !important;
+}
+.dropdownButtonClass:hover {
+  background: transparent !important;
+}
+.dropdownClass {
+  color: #6b6b6b;
+  font-family: "Roboto Geo Caps";
+  text-align: left;
+}
+.intl-tel-input {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  width: 290px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+}
+.intl-tel-input .country-list {
+  color: #000 !important;
+  font-size: 12px !important;
+  font-family: "Roboto Geo Caps" !important;
+  margin-top: 34px !important;
+}
+.intl-tel-input .flag-container {
+  color: white;
+  outline: none;
+  display: inline-flex;
+  width: 100%;
+  left: 0px !important;
+  height: 33px !important;
+  position: relative !important;
+  background: #616161 !important;
+  border: none;
+  outline: none !important;
+}
+.intl-tel-input .flag-container:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+.intl-tel-input .flag-container .selected-flag {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  outline: none !important;
+  background: transparent !important;
+  width: 98px !important;
+  z-index: 0 !important;
+}
+.intl-tel-input .flag-container .selected-flag .selected-dial-code {
+  padding: 0 10px 0 5px !important;
+}
+.intl-tel-input .flag-container .menuPhone {
+  background: #616161 !important;
+  padding-left: 0px !important;
+  margin: 0 10px 0 0px !important;
+  padding-right: 0px !important;
+}
+.countriesWrapper {
+  transition: 0.3;
+  width: max-content;
+}
+.countriesWrapper:hover .countrySelect .menuPhone {
+  background: white !important;
+  color: #616161 !important;
+}
+.countriesWrapper:hover .countrySelect .flag-container {
+  background: white !important;
+}
+.countrySelect {
+  width: 323px !important;
+  margin-left: -12px !important;
+}
+.countrySelect .menuPhone {
+  padding-left: 0px !important;
+  width: 356px !important;
+}
+.countrySelect .country-list {
+  z-index: 1000 !important;
+  width: 280px !important;
+  left: -224px !important;
+}
+.countrySelect .country-list .country .dial-code {
+  display: none !important;
+}
+.countrySelect .flag-container {
+  left: 258px !important;
+  width: 42px !important;
+}
+.countrySelect .flag-container:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+.countrySelect .flag-container .selected-flag {
+  width: 100% !important;
+  z-index: 1 !important;
+}
+.countrySelect .flag-container .selected-flag .selected-dial-code {
+  padding: 0 10px 0 5px !important;
+}
+.selector {
+  width: 100px !important;
+}
+.selector .control {
+  color: red !important;
+}
+.registrationContainer {
+  width: 100%;
+  min-height: calc(100vh);
+  background-color: #262626;
+  padding-top: 80px;
+}
+.upperTextContainer {
+  text-align: left;
+  padding: 30px 50px 0 50px;
+  font-weight: 400;
+}
+.title {
+  font-size: 26px;
+}
+.warning {
+  margin: 0px;
+  font-size: 13px;
+  color: #f2c841;
+}
+.secWarn {
+  margin: 0px;
+  font-size: 13px;
+}
+.dLine {
+  background: #616161;
+  width: 476px;
+  height: 1px;
+  margin: 26px 0;
+  margin-left: 46px;
+}
+.regButton {
+  width: 280px;
+  padding: 10px;
+  background: #cecece;
+  border: none;
+  color: #1b1b1b;
+  border-radius: 2px;
+  outline: none;
+  transition: all 0.2s ease;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 24px;
+}
+.regButton:hover {
+  background: #43a047;
+  color: #fff;
+}
+.apprRul {
+  font-size: 14px;
+  text-align: center;
+  padding-right: 26px;
+  padding-bottom: 50px;
+  padding-top: 20px;
+  color: #ccc;
+}
+.apprRul > a {
+  color: #ffca2a;
+  margin-left: 4px;
 }

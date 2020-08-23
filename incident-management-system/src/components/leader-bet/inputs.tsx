@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import "./styles/registration.css";
 import { checkName } from "./validations";
 import { ReactComponent as CheckMark } from "./styles/imgs/check.svg";
@@ -26,50 +26,66 @@ export const useInput = <
 interface IInputProps {
   defaultValue?: string | number;
   placeholder?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: "text" | "password" | "number";
   errorText: string;
   icon?: JSX.Element;
-  onIconClick?: () => void;
+  onIconClick: () => void;
   errorTextVissibility?: "visible" | "hidden";
+  isClearIcon?: boolean;
+  value: React.MutableRefObject<string> | React.MutableRefObject<number>;
 }
 
 export const GeneralInput: React.FC<IInputProps> = (props) => {
-  const input = useInput(props.defaultValue, props.onChange);
+  const [isClicked, setIsClicked] = useState(false);
+  const [value, setValue] = useState(props.value.current);
+
+  const onClear = useCallback(() => {
+    setValue("");
+    setIsClicked(true);
+  }, []);
 
   return (
     <>
-      <div className={"inputContainer"}>
+      <div className={"inputContainerForL"}>
         <input
-          className={"input"}
+          className={"inputForL"}
           placeholder={props.placeholder}
           type={props.type || "text"}
-          {...input}
+          value={value}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            props.onChange(e);
+            setValue(e.target.value);
+            setIsClicked(false);
+          }}
         />
-        {props.icon && (
-          <div className={"icon"} onClick={props.onIconClick}>
-            {props.icon}
+        {!isClicked && (
+          <div
+            className={"iconForL"}
+            onClick={!props.isClearIcon ? props.onIconClick : onClear}
+          >
+            {props.icon || ""}
           </div>
         )}
       </div>
       <div>
-        <div className={"errorTextContainer"}>
+        <div className={"errorTextContainerForL"}>
           <div
-            className={"triangle"}
+            className={"triangleForL"}
             style={
-              props.errorTextVissibility === "visible"
+              props.errorTextVissibility === "hidden" || isClicked
                 ? {
-                    visibility: "visible",
-                    transitionDelay: "0.95s",
+                    visibility: "hidden",
                   }
-                : { visibility: "hidden" }
+                : { visibility: "visible", transitionDelay: "0.95s" }
             }
           />
+
           <div
-            className={"errorText"}
+            className={"errorTextForL"}
             style={{
               transform:
-                props.errorTextVissibility === "hidden"
+                props.errorTextVissibility === "hidden" || isClicked
                   ? "scale(0)"
                   : "scale(1)",
             }}
@@ -106,6 +122,7 @@ export const NameInput: React.FC<ITextInputProps> = (props) => {
   const onTextChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       props.inputRef.current = e.target.value;
+
       if (
         props.errorText &&
         ((props.minLenght && e.target.value.length < props.minLenght) ||
@@ -118,6 +135,7 @@ export const NameInput: React.FC<ITextInputProps> = (props) => {
             <Cross style={{ width: 15 }} />
           </div>
         );
+
         setVisibility("visible");
         setErrorText(props.errorText);
       } else {
@@ -132,16 +150,16 @@ export const NameInput: React.FC<ITextInputProps> = (props) => {
       }
     },
     [
-      props.inputRef,
       props.errorText,
-      props.minLenght,
+      props.inputRef,
       props.maxLength,
       props.nameValidation,
+      props.minLenght,
     ]
   );
 
   return (
-    <div className="inputWrapper">
+    <div className="inputWrapperForL">
       <div className="inputLabel">
         {props.label}
         {!props.isnotMandatory && <span className="star">*</span>}
@@ -152,6 +170,9 @@ export const NameInput: React.FC<ITextInputProps> = (props) => {
         errorText={errorText}
         icon={icon}
         errorTextVissibility={visibility}
+        onIconClick={() => {}}
+        value={props.inputRef}
+        isClearIcon={hasError}
       />
     </div>
   );
