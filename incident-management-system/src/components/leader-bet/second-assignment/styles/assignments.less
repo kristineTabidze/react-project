@@ -1,0 +1,996 @@
+.assignmentHeaderContainer {
+  width: 100%;
+  background: #3d2f60 0% 0% no-repeat padding-box;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: white;
+  font-family: "firago";
+  > span {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 14px;
+  }
+}
+
+.aHeaderButton,
+.activeButton,
+.dashboardHeaderButton {
+  padding: 0px 15px;
+  transition: 0.2s;
+  cursor: pointer;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  > span {
+    padding-top: 19px;
+    display: flex;
+    align-items: center;
+  }
+  cursor: pointer;
+  &:hover {
+    color: #ffff00;
+  }
+}
+
+.activeButton {
+  color: #ffff00;
+}
+
+.dividedLine {
+  background: #ff00b2;
+  height: 4px;
+  width: 100%;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.gameContainer {
+  width: 227px;
+  height: 299px;
+  background: #5f39b7;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  font-family: "Roboto Geo Nus";
+  background-image: url("./imgs/danger.svg");
+  background-repeat: repeat, repeat;
+  background-size: 96px;
+  background-position: right;
+  .priceButton,
+  .pB {
+    width: 113px;
+    height: 38px;
+    background: #ffe926 0% 0% no-repeat padding-box;
+    border-radius: 19px;
+    color: #000000;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
+
+.gamesContainer {
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 10px 10px;
+  display: grid;
+  margin-top: 20px;
+  position: relative;
+}
+
+.line {
+  width: 78px;
+  height: 4px;
+  background: #95c7ee 0% 0% no-repeat padding-box;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+.circle {
+  width: 6px;
+  height: 6px;
+  background: #6ff27b 0% 0% no-repeat padding-box;
+  border-radius: 100%;
+}
+
+.circleAndLineContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 7px;
+}
+
+.gameBoxTitleContaier {
+  width: 100%;
+  text-align: left;
+}
+
+.price {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.priceNum {
+  font-size: 42px;
+  margin-right: 7px;
+  margin-bottom: -7px;
+}
+
+.secondaryTitle {
+  text-align: center;
+}
+
+.regbutton {
+  width: 225px;
+  height: 62px;
+  background: #764ed4 0% 0% no-repeat padding-box;
+  border-radius: 5px;
+  color: #ffffff;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.assignmentMainPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 1016px;
+  margin: 0 20px;
+}
+
+.assignmentMainPageContainer {
+  width: 100%;
+  background: #202126;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-bottom: 50px;
+  position: relative;
+}
+
+.userIconsContaier {
+  width: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.dashboardContainer {
+  width: 100%;
+}
+
+.dashboardHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: #202126 0% 0% no-repeat padding-box;
+  color: white;
+  margin: 20px 0;
+}
+
+.dashboardHeaderButton {
+  width: 125px;
+
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.dashboardLine {
+  width: 132px;
+  height: 4px;
+  background: #6d728e 0% 0% no-repeat padding-box;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.dashboardCircle {
+  width: 6px;
+  height: 6px;
+  background: #ffd919 0% 0% no-repeat padding-box;
+  border-radius: 100%;
+}
+
+.listHeader {
+  width: 100%;
+  height: 60px;
+  background: #2b2e3a 0% 0% no-repeat padding-box;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.listButton {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  color: white;
+  justify-content: center;
+}
+
+.dl {
+  width: 3px;
+  height: 27px;
+  background: #383946 0% 0% no-repeat padding-box;
+  border-radius: 2px;
+  margin: 0 18px 10px;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.cfButton {
+  width: 62px;
+  height: 26px;
+  background: #323341 0% 0% no-repeat padding-box;
+  border-radius: 15px;
+  color: #ffd919;
+  border: none;
+  outline: none;
+  font-weight: bold;
+}
+
+.priceButton {
+  width: 73px;
+  height: 26px;
+  background: #5f39b7 0% 0% no-repeat padding-box;
+  color: #ffd919;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  font-weight: bold;
+}
+
+.personalInfo {
+  height: 348px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  background: #3b354a;
+  padding: 5px 10px 8px;
+  .timeButton {
+    width: 96px;
+    height: 35px;
+    border: 1px solid #60667e;
+    border-radius: 18px;
+    background: transparent;
+    outline: none;
+    letter-spacing: 0px;
+    color: #c5d8f9;
+    cursor: pointer;
+  }
+  .moneyAvatar {
+    width: 100px;
+    height: 100px;
+    border: 8px solid #9c75f8;
+    background: #5936b1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+  }
+
+  .monCont {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 235px;
+    height: 43px;
+    background: #6e717e 0% 0% no-repeat padding-box;
+    border-radius: 27px;
+    padding: 0 15px;
+    color: white;
+  }
+
+  .icon {
+    color: white;
+  }
+
+  .iconandLab {
+    display: flex;
+    align-items: center;
+  }
+  > span {
+    color: white;
+    font-size: 25px;
+  }
+}
+
+.personalInfoAndSpinsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.topSpins {
+  width: 288px;
+  height: 916px;
+  background: #35364a 0% 0% no-repeat padding-box;
+  border-radius: 5px;
+  padding: 10px;
+  > span {
+    color: white;
+    > span {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: 8px;
+    }
+
+    .line {
+      width: 98px;
+      height: 4px;
+      background: #bdc63e 0% 0% no-repeat padding-box;
+      border-radius: 4px;
+    }
+
+    .circle {
+      width: 6px;
+      height: 6px;
+      background: #9a6ff2 0% 0% no-repeat padding-box;
+      border-radius: 100%;
+    }
+  }
+}
+
+.spinContainer {
+  height: 107px;
+  background: #444563 0% 0% no-repeat padding-box;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 5px 5px 5px 10px;
+  color: white;
+  .date {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 14px;
+  }
+
+  .price {
+    color: #39b7ff;
+    font-size: 35px;
+    margin-top: -23px;
+    > span {
+      margin-bottom: 6px;
+      font-size: 16px;
+      font-weight: lighter;
+      margin-left: 5px;
+    }
+  }
+
+  .users {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    > button {
+      width: 19px;
+      height: 19px;
+      background: #575875 0% 0% no-repeat padding-box;
+      border-radius: 3px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      color: #9899af;
+      display: flex;
+      align-items: center;
+      margin-left: 8px;
+      > span {
+        margin-bottom: 10px;
+        font-size: 23px;
+        margin-left: -3px;
+        margin-top: 12px;
+      }
+    }
+  }
+}
+
+.fivePlayersCard {
+  border-radius: 8px;
+  position: absolute;
+  width: 484px;
+  background-color: #198a9c;
+  color: white;
+  height: 300px;
+  z-index: 15;
+  top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-between;
+  padding: 10px;
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    > span {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      align-items: flex-start;
+      justify-content: space-between;
+      > span {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 10px;
+      }
+    }
+    > div {
+      font-size: 40px;
+      font-weight: bold;
+      > span {
+        font-size: 19px;
+        font-weight: lighter;
+        margin-left: -6px;
+      }
+    }
+  }
+  .box,
+  .boxWithPoster {
+    width: 209px;
+    height: 121px;
+    border: 2px solid #56bec9;
+    border-radius: 10px;
+    color: white;
+    background: transparent;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0 5px;
+    > span {
+      position: absolute;
+      bottom: -9px;
+      background: #198a9c;
+      padding: 1px 18px;
+      font-size: 16px;
+      font-weight: lighter;
+    }
+  }
+
+  .boxWithPoster {
+    background-image: url("./imgs/poster.png");
+    background-size: 178px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .boxesContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .usersContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    > button {
+      width: 120px;
+      height: 56px;
+      background: #2dbfb5 0% 0% no-repeat padding-box;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      font-size: 18px;
+      margin-right: -10px;
+    }
+  }
+}
+
+.pB {
+  width: 113px;
+  height: 38px;
+  background: #ffe926 0% 0% no-repeat padding-box;
+  border-radius: 19px;
+  color: #000000;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: bold;
+  width: 95px;
+  height: 32px;
+  margin-right: 15px;
+}
+
+.blurBlackDiv {
+  width: 100%;
+  position: absolute;
+  height: 1373px;
+  background: #0000008c;
+  z-index: 10;
+}
+
+.linearProgressBar {
+  width: 314px;
+  height: 3px;
+  margin: 10px auto;
+  border-radius: 6px !important;
+}
+
+.colorPrimary {
+  background: #26c6df !important;
+}
+
+.barColorPrimary {
+  background: #17ff4d !important;
+  width: 58px !important;
+  border-radius: 6px !important;
+}
+
+.progressBarWithLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.cancelButtonContainer {
+  width: 100%;
+  text-align: right;
+  > button {
+    width: 125px;
+    height: 54px;
+    background: #1a6f7d 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+  }
+}
+
+.historyContainer {
+  position: absolute;
+  width: 964px;
+  height: 690px;
+  background: #35364a 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 40px #00000096;
+  border-radius: 10px;
+  padding: 10px;
+  top: 68px;
+  > span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    font-size: 16px;
+    padding: 5px 22px;
+  }
+  .header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    .button {
+      width: calc((100% - 205px) / 6);
+      text-align: center;
+      color: white;
+    }
+  }
+  .oneHistoryContainer {
+    display: flex;
+    align-items: center;
+    height: 66px;
+    background: #444563 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    margin: 3px 0;
+    color: white;
+    .button,
+    .buttonUsers {
+      text-align: center;
+      font-size: 13px;
+      width: calc((100% - 205px) / 6);
+    }
+    .buttonUsers {
+      width: 205px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      > span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: left;
+      }
+    }
+  }
+}
+
+.startPlayContainer {
+  position: absolute;
+  z-index: 100000000000;
+  left: calc(50% - 448px);
+  width: 689px;
+  height: 444px;
+  background: #201932 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 40px #00000096;
+  border-radius: 10px;
+  top: 157px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  .leftSideContainer,
+  .rightSideContainer {
+    width: 50%;
+    padding: 18px;
+  }
+
+  .leftSideItemsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .leftSideItemContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 1px solid #312946;
+    color: #eceffe;
+    padding: 18px 0;
+  }
+
+  .rightSideContainer {
+    background: #352d4b 0% 0% no-repeat padding-box;
+    border-radius: 0px 10px 10px 0px;
+    height: calc(100% - 36px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    .boxWithPoster {
+      width: 209px;
+      height: 121px;
+      border: 2px solid #56bec9;
+      border-radius: 10px;
+      color: white;
+      background: transparent;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      font-weight: bold;
+      margin: 0 5px;
+      background-image: url("./imgs/poster.png");
+      background-size: 178px;
+      background-position: center;
+      background-repeat: no-repeat;
+      > div {
+        font-size: 20px;
+        bottom: -14px;
+        position: absolute;
+        background: #352d4b;
+        padding: 0 15px;
+      }
+    }
+    > span {
+      color: #ffe926;
+      font-size: 40px;
+      font-weight: bold;
+      > span {
+        font-size: 20px;
+        font-weight: lighter;
+      }
+    }
+
+    .rightITem {
+      width: 225px;
+      height: 35px;
+      background: #413858 0% 0% no-repeat padding-box;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      color: white;
+      > div {
+        display: flex;
+        align-items: center;
+      }
+    }
+    .startButton {
+      width: 120px;
+      height: 52px;
+      background: #2dbfb5 0% 0% no-repeat padding-box;
+      border-radius: 5px;
+      color: white;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  }
+}
+
+.startGamePage {
+  width: 100%;
+  background: #1a1a1a 0% 0% no-repeat padding-box;
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  .leftSide {
+    background: #241e36;
+    width: 400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    .upperBox {
+      width: 286px;
+      padding: 33px 0;
+      background: #5834ac 0% 0% no-repeat padding-box;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      color: white;
+      > span {
+        font-size: 40px;
+        font-weight: bold;
+        margin-top: 20px;
+        > span {
+          font-size: 20px;
+          font-weight: lighter;
+        }
+      }
+    }
+
+    .userContainerActive {
+      background: #5834ac !important;
+      .circle {
+        background: #ffca2a !important;
+        color: #000000 !important;
+      }
+      .userNameContainer {
+        color: #ffff00 !important;
+        .icon {
+          color: #9068ee !important;
+        }
+      }
+    }
+
+    .userContainer,
+    .userContainerActive {
+      width: 338px;
+      background: #352d4b 0% 0% no-repeat padding-box;
+      border-radius: 41px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: 0.2s;
+      &:hover {
+        background: #5834ac;
+        .circle {
+          background: #ffca2a;
+          color: #000000;
+        }
+        .userNameContainer {
+          color: #ffff00;
+          .icon {
+            color: #9068ee;
+          }
+        }
+      }
+
+      .circle {
+        width: 63px;
+        height: 63px;
+        background: #3f365a 0% 0% no-repeat padding-box;
+        border-radius: 100%;
+        color: white;
+        outline: none;
+        border: none;
+        font-size: 30px;
+      }
+
+      .userNameContainer {
+        display: flex;
+        flex-direction: column;
+        color: #39b7ff;
+        font-size: 26px;
+        font-weight: bold;
+        align-items: center;
+        justify-content: flex-start;
+
+        .icon {
+          color: #665e7d;
+          width: 14px;
+          margin-right: 7px;
+        }
+
+        > div {
+          display: flex;
+          align-items: center;
+          font-size: 16px;
+          color: white;
+        }
+      }
+
+      .coin {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        color: #c3dae8;
+        font-size: 23px;
+        margin: 0px 10px 0 77px;
+
+        > span {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+  .rightSideContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 400px);
+    height: 100%;
+
+    .congratsBox {
+      width: 447px;
+      height: 377px;
+      background: #241e36 0% 0% no-repeat padding-box;
+      box-shadow: 0px 0px 40px #00000096;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      .prButton {
+        margin-top: 20px;
+        width: 299px;
+        height: 88px;
+        background: #201a31 0% 0% no-repeat padding-box;
+        border-radius: 44px;
+        border: none;
+        outline: none;
+        color: white;
+        > span {
+          font-weight: bold;
+          font-size: 40px;
+          color: #ffff00;
+          > span {
+            font-size: 20px;
+            font-weight: lighter;
+          }
+        }
+      }
+      .closeButtonContainer {
+        width: 100%;
+        text-align: right;
+        bottom: 4px;
+        margin-bottom: -68px;
+        margin-top: 40px;
+        margin-right: 14px;
+        > button {
+          height: 62px;
+          background: #2f2847 0% 0% no-repeat padding-box;
+          border-radius: 5px;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          color: white;
+          width: 135px;
+        }
+      }
+    }
+  }
+}
+
+.headerAndAssignmentContainer {
+  display: flex;
+  flex-direction: column;
+  background: #202126;
+}
+
+.mainHeaderContainer {
+  width: 1328px;
+  color: white;
+  padding: 15px;
+  display: flex;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  .settingContainer {
+    flex: 1;
+    text-align: right;
+    > button {
+      width: 114px;
+      height: 41px;
+      background: #ffca2a 0% 0% no-repeat padding-box;
+      border-radius: 21px;
+      color: black;
+      font-weight: bold;
+      border: none;
+      outline: none;
+      margin-right: 15px;
+    }
+  }
+}
+
+.jackpotContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  > div {
+    display: flex;
+    align-items: flex-end;
+    .bigNumber,
+    .smallNumber {
+      width: 27px;
+      height: 34px;
+      background: #505081 0% 0% no-repeat padding-box;
+      border-radius: 3px;
+      color: #d6d9d9;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 2px;
+      font-size: 18px;
+    }
+
+    .smallNumber {
+      color: #9aaacf;
+      width: 23px;
+      height: 29px;
+      background: #40406d 0% 0% no-repeat padding-box;
+      border-radius: 3px;
+      font-size: 16px;
+    }
+  }
+}

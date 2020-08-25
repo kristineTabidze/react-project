@@ -16,6 +16,8 @@ import { ViewBlog } from "./components/main-table/view-blog";
 import { Header } from "./components/main-table/header";
 import { SignUpInputs } from "./components/leader-bet";
 import { PhoneNumberSelector } from "./components/leader-bet/international-telephone-input";
+import { MainPage } from "./components/leader-bet/second-assignment";
+import { StartGame } from "./components/leader-bet/second-assignment/start-game";
 
 export const HistoryContext = React.createContext<History>(
   (null as any) as History
@@ -71,8 +73,20 @@ export default function App({
               exact={true}
             />
             {/* <Route
-              path="/"
+              path="/registration"
               component={SignUpInputs}
+              location={location}
+              exact={true}
+            />
+            <Route
+              path="/"
+              component={MainPage}
+              location={location}
+              exact={true}
+            />
+            <Route
+              path="/start-game"
+              component={StartGame}
               location={location}
               exact={true}
             /> */}

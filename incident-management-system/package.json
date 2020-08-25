@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material/linear-progress": "^7.0.0",
     "@progress/kendo-drawing": "^1.8.1",
     "@progress/kendo-react-data-tools": "^3.15.0",
     "@progress/kendo-react-intl": "^3.15.0",
