@@ -28,7 +28,7 @@
     "@types/react-select": "^3.0.16",
     "bootstrap": "^3.4.1",
     "html2canvas": "^1.0.0-rc.5",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "less": "^3.11.1",
     "node-sass": "^4.13.1",
     "quill-image-drop-module": "^1.0.3",
